@@ -1,26 +1,26 @@
 const express = require('express');
 const router = express.Router()
-const RoomType = require('../models/roomTypeModel')
+const {
+    getAllRoomTypes,
+    getRoomType,
+    createRoomType,
+    deleteRoomType,
+    updateRoomType
+} = require('../controllers/roomTypeController')
+
+//Get all room Types
+router.get('/',getAllRoomTypes)
+
+//Get a Single room type
+router.get('/:id',getRoomType)
 
 //Post a new roomType
-router.post('/', async (req,res)=>{
+router.post('/', createRoomType)
 
-    const { typeName, amenities } = req.body;
-    console.log(req.body)
+//delete a room type
+router.delete('/:id',deleteRoomType)
 
-    try {
-        // Save the new room type to the database
-        const roomType = await RoomType.create({typeName,amenities});
-        res.status(200).json(roomType);
-        
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
-
-})
-
-router.put('/:id', (req,res)=>{
-    res.json({mssg:'Update a roomType'})
-})
+//Update a room type
+router.put('/:id',updateRoomType)
 
 module.exports=router

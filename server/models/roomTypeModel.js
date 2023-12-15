@@ -5,7 +5,15 @@ const roomTypeSchema = new mongoose.Schema({
         type: String,
         required:true
     },
-    amenities: [String]
+    amenities: [String],
+    typeDescription: {
+        type: String,
+        required:true
+    },
+    roomCapacity: {
+        type: Number,
+        required:true
+    }
 });
 
 module.exports = mongoose.model('RoomType', roomTypeSchema);
