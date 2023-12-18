@@ -1,7 +1,7 @@
 import React from "react";
  
 
-export default function edit(){
+export default function editroom(){
 
    <div>
 
