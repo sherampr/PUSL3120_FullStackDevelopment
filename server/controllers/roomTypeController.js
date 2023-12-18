@@ -1,5 +1,5 @@
 const RoomType = require('../models/roomTypeModel')
-const mongoose = require('mongoose')
+
 //Get all room Types
 const getAllRoomTypes = async (req, res) => {
     try {
@@ -13,9 +13,6 @@ const getAllRoomTypes = async (req, res) => {
 //Get a single room type
 const getRoomType = async (req, res) => {
     const { id } = req.params;
-
-    
-
     try {
         const roomType = await RoomType.findById(id);
         res.status(200).json(roomType);
@@ -26,23 +23,14 @@ const getRoomType = async (req, res) => {
 
 //Create a new room type
 const createRoomType = async (req, res) => {
-    const { typeName,typePrice, amenities, typeDescription, roomCapacity, imageUrls } = req.body;
-    
-    // Convert the structured URLs to ImageSchema format
-    let typeImages = imageUrls.map(image => ({
-        url: image.url,
-        contentType: 'image/jpeg', // Set a default or derive from URL
-        isMain: image.isMain || false // Set isMain based on the provided value
-    }));
-
+    const { typeName, amenities, typeDescription, roomCapacity } = req.body;
     try {
-        const roomType = await RoomType.create({ typeName,typePrice, amenities, typeDescription, roomCapacity, typeImages });
+        const roomType = await RoomType.create({ typeName, amenities, typeDescription, roomCapacity });
         res.status(200).json(roomType);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
-};
-
+}
 
 //delete a room type
 const deleteRoomType = async (req, res) => {
