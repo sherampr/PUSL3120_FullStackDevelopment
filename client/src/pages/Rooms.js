@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-
+import '../styles/RoomPageStyles.css'
 //Importing components
 import RoomTypeDetails  from '../components/RoomTypeDetails'
 
@@ -21,15 +21,17 @@ const Rooms = ()=>{
   
 
     return(
-        <div className="home">
-          <div className="roomTypes">
+        <section className="">
+        
+          <div className="cards-wrapper">
             {roomTypes && roomTypes.map((roomType)=>(
                  <RoomTypeDetails key={roomType._id} roomType={roomType}/>
             )
             
             )}
           </div>
-        </div>
+        
+        </section>
     )
 }
 
