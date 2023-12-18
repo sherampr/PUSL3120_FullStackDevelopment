@@ -1,0 +1,17 @@
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-button {
+    background-color: transparent; 
+    border: none;
+    color: inherit; 
+    font-size: 1em; 
+    cursor: pointer; 
+}
+
+.login-button:hover {
+    color: #007bff; 
+}
