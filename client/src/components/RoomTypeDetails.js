@@ -1,12 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-
-const RoomTypeDetails = ({roomType})=>{
-    return(
-        <div className="room-details">
-            <h4>{roomType.typeName}</h4>
-            <p>{roomType.typeDescription}</p>
-=======
 import '../styles/RoomPageStyles.css'
 
 const RoomTypeDetails = ({roomType})=>{
@@ -26,20 +18,15 @@ const RoomTypeDetails = ({roomType})=>{
                         <img src={mainImage.url} alt={roomType.typeName} />
                     )} */}
             {/* <p>{roomType.typeDescription}</p>
->>>>>>> parent of 9060925 (Revert "Room Pages,controllers,model updated")
             <p>Room Capacity: {roomType.roomCapacity}</p>
             <p>Amenities:</p>
             <ul>
                 {roomType.amenities.map((amenity, index) => (
                     <li key={index}>{amenity}</li>
                 ))}
-<<<<<<< HEAD
-            </ul>
-=======
             </ul> */}
             </div>
         </div>
->>>>>>> parent of 9060925 (Revert "Room Pages,controllers,model updated")
         </div>
     )
 }
