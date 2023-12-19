@@ -4,10 +4,28 @@ function bookingForm(){
     return(
         <div>
 
-            <h1>Booking form</h1>
+            
             <form method="POST">
+                <table>
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" placeholder="Enter name"/></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><input type="text" placeholder="Enter email address"/></td>
+                    </tr>
+                    <tr>
+                        <td>Select chekin</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Select checkout</td>
+                        <td></td>
+                    </tr>
 
-                <input type="text" />
+                </table>
+
 
             </form>
 
