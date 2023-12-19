@@ -1,6 +1,6 @@
 
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch,Route} from 'react-router-dom';
 import bookingForm from './pages/Booking_form';
 
 
@@ -10,7 +10,7 @@ function App() {
 
       <Router>
         <Switch>
-          <Route path="/" exact component={bookingForm}/>
+        <Route path="/" exact component={bookingForm}/>
         </Switch>
       </Router>
 
