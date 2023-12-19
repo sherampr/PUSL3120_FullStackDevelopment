@@ -1,13 +1,18 @@
 
-import Roomlist from './components/Roomlist';
-import editroom from './components/Room_edit';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Addroom from './components/Addroom';
+import bookingForm from './pages/Booking_form';
 
 
 function App() {
   return (
     <div className="App">
+
+      <Router>
+        <Switch>
+          <Route path="/" exact component={bookingForm}/>
+        </Switch>
+      </Router>
 
   
 
