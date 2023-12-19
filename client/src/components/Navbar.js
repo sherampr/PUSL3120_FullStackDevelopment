@@ -1,25 +1,29 @@
-import { Link, useNavigate } from "react-router-dom";
-import "../CSS pages/Navbar.css";
+import { Link } from "react-router-dom";
+import '../styles/Navbar.css'
 
-const Navbar = () => {
-  const navigate = useNavigate();
+const Navbar = ()=>{
 
-  const handleLoginClick = () => {
-    navigate("/Login");
-  };
-
-  return (
-    <header>
-      <div className="navbar-container">
-        <Link to="/">
-          <h1>Felicon Hotel</h1>
-        </Link>
-        <button className="login-button" onClick={handleLoginClick}>
-          Login
-        </button>
-      </div>
-    </header>
-  );
-};
-
+    return(
+        <header>
+            <div className="nav__logo">
+                <Link  to="/">
+                    <h1 className="felicon">Felicon Hotel</h1>
+                </Link>
+            </div>
+            <div className="nav__links">
+            <Link className="link" to="/rooms">
+                    <h5>Rooms</h5>
+                </Link>
+                <Link className="link" to="/">
+                    <h5>Services</h5>
+                </Link>
+                <Link className="link" to="/login">
+                    <h5>Login</h5>
+                </Link>
+                
+            </div>
+        
+        </header>
+    )
+}
 export default Navbar;
