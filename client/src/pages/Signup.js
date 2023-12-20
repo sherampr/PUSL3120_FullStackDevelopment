@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../CSS pages/Signuppage.css";
-
+import axios from "axios";
 const SignupPage = () => {
   const [user, setUser] = useState({
     firstName: "",
@@ -16,10 +16,22 @@ const SignupPage = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit logic here
-    console.log(user);
+
+    try {
+      // Send the user data to the server's /api/register route
+      const response = await axios.post("/api/register", { user });
+
+      // Check the response for success
+      if (response.status === 201) {
+        console.log("User registered successfully");
+        // You can redirect or perform other actions upon successful registration
+      }
+    } catch (error) {
+      console.log("Error registering user:", error);
+      // Handle the error as needed
+    }
   };
 
   return (
@@ -71,7 +83,7 @@ const SignupPage = () => {
           <h4>Telphone number</h4>
           <input
             name="telphone"
-            type="number"
+            type="string"
             placeholder="Enter your phone number"
             onChange={handleChange}
           />
