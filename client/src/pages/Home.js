@@ -82,9 +82,9 @@ const Home = ()=>{
 
     <section class="section__container">
       <div class="reward__container">
-        <p>Felicon </p>
-        <h4>Frequent Traveller?</h4>
-        <button class="reward__btn">Get the Felicon membership Now</button>
+        <p>Felicon Restaurant </p>
+        <h4>Enjoy srilanka's best food with top notch service from our staff</h4>
+        <button class="reward__btn">View Menu or Reserve a table here</button>
       </div>
     </section>
 

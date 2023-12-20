@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Rooms from './pages/Rooms';
 import Footer from './components/Footer';
 import RoomDetails from './pages/RoomDetails';
+import NewRoom from './pages/NewRoom';
 function App() {
   return (
     <div className="App">
@@ -20,8 +21,12 @@ function App() {
         element={<Rooms />}
       />
        <Route path="/room-details/:id" element={<RoomDetails/>} />
+
+       <Route path="/newroom" element={<NewRoom/>} />
+
           </Routes>
         </div>
+        
 <Footer/>
      </BrowserRouter>
     </div>
