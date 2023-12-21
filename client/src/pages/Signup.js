@@ -21,7 +21,7 @@ const SignupPage = () => {
 
     try {
       // Send the user data to the server's /api/register route
-      const response = await axios.post("/api/register", { user });
+      const response = await axios.post("/api/users", { user });
 
       // Check the response for success
       if (response.status === 201) {
@@ -82,7 +82,7 @@ const SignupPage = () => {
           />
           <h4>Telphone number</h4>
           <input
-            name="telphone"
+            name="phone"
             type="string"
             placeholder="Enter your phone number"
             onChange={handleChange}

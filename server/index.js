@@ -1,10 +1,11 @@
 require("dotenv").config();
 
 const express = require("express");
-const roomRoutes = require("./routes/rooms");
-const roomTypeRoutes = require("./routes/roomTypes");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const roomRoutes = require("./routes/rooms");
+const roomTypeRoutes = require("./routes/roomTypes");
+const userRoutes = require("./routes/register");
 
 const app = express();
 //middleware
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 app.use("/api/rooms", roomRoutes);
 
 app.use("/api/roomtypes", roomTypeRoutes);
+app.use("/api/register", userRoutes);
 
 //DB connection
 mongoose
@@ -31,4 +33,4 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-app.post("api/register");
+app.post("api/users");
