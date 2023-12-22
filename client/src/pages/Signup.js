@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "../CSS pages/Signuppage.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const SignupPage = () => {
-  const [user, setUser] = useState({
+  const [data, setData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -10,27 +11,28 @@ const SignupPage = () => {
     confirmPassword: "",
     phone: "",
   });
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      // Send the user data to the server's /api/register route
-      const response = await axios.post("/api/users", { user });
-
-      // Check the response for success
-      if (response.status === 201) {
-        console.log("User registered successfully");
-        // You can redirect or perform other actions upon successful registration
-      }
+      const url = "/api/testing/users";
+      const { data: res } = await axios.post(url, { data });
+      navigate("/Login");
+      console.log(res.message);
     } catch (error) {
-      console.log("Error registering user:", error);
-      // Handle the error as needed
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
     }
   };
 
@@ -87,6 +89,7 @@ const SignupPage = () => {
             placeholder="Enter your phone number"
             onChange={handleChange}
           />
+          {error && <div className={"error_msg"}>{error}</div>}
           <button type="submit">Register</button>
           <p>
             Already have an account? <a href="/login">Log in</a>
