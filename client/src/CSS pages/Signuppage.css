@@ -77,13 +77,13 @@
   gap: 7px; 
 }
 .error_msg::before {
-  content: ''; /* Necessary to generate the pseudo-element */
-  display: inline-block; /* To allow width and height to be set */
-  width: 20px; /* Set the width of the image */
-  height: 20px; /* Set the height of the image */
+  content: ''; 
+  display: inline-block;
+  width: 20px; 
+  height: 20px; 
   background: url('https://simg.nicepng.com/png/small/22-229128_warning-attention-road-sign-exclamation-mark-warning-icon.png') no-repeat center center;
-  background-size: contain; /* This will ensure that the image is scaled down to fit within the element */
-  margin-right: 10px; /* Add some margin to separate the image from the text */
+  background-size: contain;
+  margin-right: 10px;
 }
 
 
