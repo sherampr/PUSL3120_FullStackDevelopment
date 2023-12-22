@@ -1,18 +1,31 @@
 import React, { useState } from "react";
 import "../CSS pages/Loginpage.css";
+import axios from "axios";
 
 const LoginPage = () => {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [data, setData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials({ ...credentials, [name]: value });
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(credentials);
+    try {
+      const url = "/api/auth";
+      const { data: res } = await axios.post(url, data);
+      localStorage.setItem("token", res.data);
+      window.location = "/";
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+      }
+    }
   };
 
   return (
@@ -41,6 +54,7 @@ const LoginPage = () => {
             placeholder="Enter your Password here"
             onChange={handleChange}
           />
+          {error && <div className={"error_msg"}>{error}</div>}
           <button type="submit">Login Here</button>
           <p>
             Create an account? <a href="/signup">Sign-Up</a>

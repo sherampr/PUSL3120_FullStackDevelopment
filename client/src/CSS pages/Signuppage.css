@@ -61,3 +61,29 @@
 .signup-container a:hover {
   text-decoration: underline;
 }
+.error_msg {
+  display: flex; 
+  align-items: center; 
+  width: auto; 
+  padding: 10px; 
+  margin: 5px 0; 
+  font-size: 14px; 
+  background-color: #f8d7da; 
+  color: #721c24; 
+  border: 1px solid #f5c6cb; 
+  border-radius: 4px; 
+  text-align: left;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  gap: 7px; 
+}
+.error_msg::before {
+  content: ''; /* Necessary to generate the pseudo-element */
+  display: inline-block; /* To allow width and height to be set */
+  width: 20px; /* Set the width of the image */
+  height: 20px; /* Set the height of the image */
+  background: url('https://simg.nicepng.com/png/small/22-229128_warning-attention-road-sign-exclamation-mark-warning-icon.png') no-repeat center center;
+  background-size: contain; /* This will ensure that the image is scaled down to fit within the element */
+  margin-right: 10px; /* Add some margin to separate the image from the text */
+}
+
+
