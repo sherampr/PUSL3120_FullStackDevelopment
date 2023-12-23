@@ -73,4 +73,14 @@ button{
     );
     color: #ffffff;
     border-radius: 3px;
+    height: 50px;
+    cursor:pointer;
+}
+
+button:hover{
+    background: linear-gradient(
+        130deg,
+        #4d4be0,
+        #1d1a70
+    );
 }

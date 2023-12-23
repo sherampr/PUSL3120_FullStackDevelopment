@@ -31,7 +31,7 @@ const RoomDetails = () => {
                 <p>{roomTypes.location}</p>
                 <p>{roomTypes.description}</p>
                 <p>check</p>
-            </div>
+            </div>  
         </div>
     )
 }

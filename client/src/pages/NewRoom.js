@@ -1,33 +1,55 @@
 import React, { useState } from 'react';
 import '../styles/NewRoom.css'
+import axios from 'axios';
 
 const NewRoom = () => {
-    const [roomType, setRoomType] = useState({
-        typeName: '',
-        typePrice: '',
-        amenities: [],
-        typeDescription: '',
-        roomCapacity: '',
-        typeImages: [],
-     });
-    
-     const handleChange = (e) => {
-        setRoomType({ ...roomType, [e.target.name]: e.target.value });
-     };
-    
-     const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(roomType);
-        // You can handle the submission logic here.
-     };
+  const [roomType, setRoomType] = useState({
+    typeName: '',
+    typePrice: '',
+    amenities: '',
+    typeDescription: '',
+    roomCapacity: '',
+    typeImages: ''
+});
 
-     const addImage = () => {
-        const newImage = prompt('Enter the image URL');
-        if (newImage) {
-            setRoomType({ ...roomType, typeImages: [...roomType.typeImages, newImage] });
-        }
-     };
-    
+const handleChange = (e) => {
+    setRoomType({ ...roomType, [e.target.name]: e.target.value });
+};
+
+const addImage = () => {
+    setRoomType({ ...roomType, typeImages: [...roomType.typeImages, ''] });
+};
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { typeName, typePrice, amenities, typeDescription, roomCapacity, typeImages } = roomType;
+
+    const newRoomType = {
+        typeName,
+        typePrice,
+        amenities: amenities.split(','),
+        typeDescription,
+        roomCapacity,
+        imageUrls: typeImages.split(',').map((url, index) => ({ url, isMain: index === 0 }))
+    };
+
+    try {
+        await axios.post('/api/roomtypes', newRoomType);
+        alert('Room Type Added Successfully');
+        setRoomType({
+            typeName: '',
+            typePrice: '',
+            amenities: '',
+            typeDescription: '',
+            roomCapacity: '',
+            typeImages: ''
+        });
+    } catch (err) {
+        console.error(err);
+        alert('Error Adding Room Type');
+    }
+};
     
      return (
         <div className='newroom'>
@@ -91,6 +113,7 @@ const NewRoom = () => {
                   required
                 />
               </div>
+              <div className="row">
               <div>
                 <label htmlFor="typeImages">Room Type Images</label>
                 <textarea
@@ -99,8 +122,8 @@ const NewRoom = () => {
                  value={roomType.typeImages}
                  onChange={handleChange}
                 />
-              </div>
-              <button type="button" onClick={addImage}>Add Image</button>
+              </div></div>
+              {/* <button type="button" className='addBtn' onClick={addImage}>Add Image</button> */}
             </div>
             <button type="submit">Submit</button>
           </form>
