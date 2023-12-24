@@ -3,6 +3,8 @@ import "../styles/Navbar.css";
 import { FaRegUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
+  const isLoggedIn = localStorage.getItem("token");
+
   return (
     <header>
       <div className="nav__logo">
@@ -19,12 +21,15 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="nav__log_link">
-        <Link className="link" to="/login">
-          <h5>Login</h5>
-        </Link>
+        {!isLoggedIn && (
+          <Link className="link" to="/login">
+            <h5>Login</h5>
+          </Link>
+        )}
         <FaRegUserCircle size={45} />
       </div>
     </header>
   );
 };
+
 export default Navbar;
