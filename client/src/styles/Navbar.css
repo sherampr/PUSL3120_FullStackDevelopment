@@ -54,6 +54,17 @@ a {
     margin-right: 3rem;
     color: antiquewhite;
   }
+  .user-info {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+.user-name {
+    text-align: center; 
+  
+}
+
   
   .link {
     font-weight: 500;

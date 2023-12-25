@@ -2,23 +2,35 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
 import { FaRegUserCircle } from "react-icons/fa";
+import axios from "axios";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    // Update isLoggedIn state based on the presence of the token
     const checkLoginStatus = () => {
-      setIsLoggedIn(!!localStorage.getItem("token"));
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
+      if (token) {
+        fetchUserData(token);
+      }
     };
 
-    // Call the function to set initial state
-    checkLoginStatus();
+    const fetchUserData = async (token) => {
+      try {
+        const response = await axios.get("/api/users", {
+          headers: { "x-auth-token": token },
+        });
+        setUserData(response.data);
+      } catch (error) {
+        console.log("Error fetching user data:", error);
+      }
+    };
 
-    // Optionally, set up an event listener for storage changes
+    checkLoginStatus();
     window.addEventListener("storage", checkLoginStatus);
 
-    // Clean up the event listener
     return () => {
       window.removeEventListener("storage", checkLoginStatus);
     };
@@ -45,9 +57,12 @@ const Navbar = () => {
             <h5>Login</h5>
           </Link>
         ) : (
-          <Link className="link" to="/UserDetails">
-            <FaRegUserCircle size={45} />
-          </Link>
+          <div className="user-info">
+            <span className="user-name">{`${userData.firstName} ${userData.lastName}`}</span>
+            <Link className="link" to="/UserDetails">
+              <FaRegUserCircle size={45} />
+            </Link>
+          </div>
         )}
       </div>
     </header>

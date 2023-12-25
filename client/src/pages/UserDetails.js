@@ -9,7 +9,7 @@ const UserDetails = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login"); // Redirect to login if no token
+      navigate("/login");
     } else {
       axios
         .get("/api/users", {
@@ -23,19 +23,25 @@ const UserDetails = () => {
         })
         .catch((err) => {
           console.log(err);
+          if (err.response && err.response.status === 401) {
+            navigate("/login");
+          }
         });
     }
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove the token
-    navigate("/"); // Redirect to login page
+    localStorage.removeItem("token");
+    navigate("/");
+    window.location.reload();
   };
 
   return (
     <div>
       <h1>User Details</h1>
-      <p>Name: {data.firstName}</p> {/* Corrected from data.firstNam */}
+      <p>
+        Name: {data.firstName} {data.lastName}
+      </p>
       <p>Email: {data.email}</p>
       <button onClick={handleLogout}>Logout</button>
     </div>
