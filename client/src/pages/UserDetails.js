@@ -36,6 +36,20 @@ const UserDetails = () => {
     window.location.reload();
   };
 
+  const handleDeleteAccount = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete("/api/users", {
+        headers: { "x-auth-token": token },
+      });
+      localStorage.removeItem("token");
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
+  };
+
   return (
     <div>
       <h1>User Details</h1>
@@ -44,6 +58,7 @@ const UserDetails = () => {
       </p>
       <p>Email: {data.email}</p>
       <button onClick={handleLogout}>Logout</button>
+      <button onClick={handleDeleteAccount}>Delete Account</button>
     </div>
   );
 };

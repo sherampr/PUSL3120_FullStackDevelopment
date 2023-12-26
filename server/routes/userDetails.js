@@ -3,20 +3,47 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models/userModel");
 const router = express.Router();
 
+// Endpoint to get user details
 router.get("/", async (req, res) => {
   try {
     const token = req.headers["x-auth-token"];
-    if (!token)
+    if (!token) {
       return res.status(401).send("Access denied. No token provided.");
+    }
 
     const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
-    if (!decoded) return res.status(400).send("Invalid token.");
+    if (!decoded) {
+      return res.status(400).send("Invalid token.");
+    }
 
     const userData = await User.findById(decoded._id).select("-password");
-    if (!userData) return res.status(404).send("User not found.");
+    if (!userData) {
+      return res.status(404).send("User not found.");
+    }
 
     res.send(userData);
   } catch (error) {
+    res.status(500).send({ message: "Internal server error" });
+  }
+});
+
+// Endpoint to delete user account
+router.delete("/", async (req, res) => {
+  try {
+    const token = req.headers["x-auth-token"];
+    if (!token) {
+      return res.status(401).send("Access denied. No token provided.");
+    }
+
+    const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
+    if (!decoded) {
+      return res.status(400).send("Invalid token.");
+    }
+
+    await User.findByIdAndDelete(decoded._id);
+    res.send("Account deleted successfully.");
+  } catch (error) {
+    console.error(error);
     res.status(500).send({ message: "Internal server error" });
   }
 });

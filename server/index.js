@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 app.use("/api/rooms", roomRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/roomtypes", roomTypeRoutes);
-app.use("/api/register", registerRoutes);
+app.use("/api/users", registerRoutes);
 app.use("/api/users", userDetailRoutes);
 
 //DB connection
