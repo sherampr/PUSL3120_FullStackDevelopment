@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+
 function BookingForm() {
   const [checkinDate, setCheckinDate] = useState(null);
   const [checkoutDate, setCheckoutDate] = useState(null);
@@ -13,6 +14,8 @@ function BookingForm() {
 
   return (
     <div className="booking-form-container">
+      <h1>Hotel booking</h1>
+      <h3>Experience something new</h3>
       <form onSubmit={handleSubmit}>
         <table>
           <tbody>
@@ -50,7 +53,7 @@ function BookingForm() {
             </tr>
           </tbody>
         </table>
-        <button type="submit">Submit</button>
+        <button type="submit">confirm</button>
       </form>
     </div>
   );
