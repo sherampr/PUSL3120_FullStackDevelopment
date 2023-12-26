@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "../styles/UserDetails.css";
+import { FaUserEdit } from "react-icons/fa";
 
 const UserDetails = () => {
   const [data, setData] = useState({});
@@ -52,13 +55,32 @@ const UserDetails = () => {
 
   return (
     <div>
-      <h1>User Details</h1>
-      <p>
-        Name: {data.firstName} {data.lastName}
-      </p>
-      <p>Email: {data.email}</p>
-      <button onClick={handleLogout}>Logout</button>
-      <button onClick={handleDeleteAccount}>Delete Account</button>
+      <div className="hello">
+        <h1>Hello there {data.firstName}</h1>
+        <div className="logout">
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      </div>
+      <div className="profile">
+        <h2>Profile</h2>
+        <div className="edit">
+          <Link to="/Userupdate">
+            <FaUserEdit
+              size={25}
+              onMouseOver={({ target }) => (target.style.color = "black")}
+              onMouseOut={({ target }) => (target.style.color = "gray")}
+            />
+          </Link>
+        </div>
+        <p>
+          userName: {data.firstName} {data.lastName}
+        </p>
+        <p>Email: {data.email}</p>
+        <p>phone number: {data.phone}</p>
+        <div className="delete">
+          <button onClick={handleDeleteAccount}>Delete Account</button>
+        </div>
+      </div>
     </div>
   );
 };

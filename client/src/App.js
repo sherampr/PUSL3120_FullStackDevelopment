@@ -7,6 +7,7 @@ import RoomDetails from "./pages/RoomDetails";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserDetails from "./pages/UserDetails";
+import Userupdate from "./pages/UserUpdate";
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
             <Route path="/Login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/UserDetails" element={<UserDetails />} />
+            <Route path="/Userupdate" element={<Userupdate />} />
           </Routes>
         </div>
         <Footer />

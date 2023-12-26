@@ -60,7 +60,13 @@ const Navbar = () => {
           <div className="user-info">
             <span className="user-name">{`${userData.firstName} ${userData.lastName}`}</span>
             <Link className="link" to="/UserDetails">
-              <FaRegUserCircle size={45} />
+              <FaRegUserCircle
+                onMouseOver={({ target }) =>
+                  (target.style.color = "antiquewhite")
+                }
+                onMouseOut={({ target }) => (target.style.color = "white")}
+                size={45}
+              />
             </Link>
           </div>
         )}
