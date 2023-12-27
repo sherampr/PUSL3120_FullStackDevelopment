@@ -13,7 +13,6 @@ const UserUpdate = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch current user data when component mounts
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
@@ -48,7 +47,6 @@ const UserUpdate = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
-    // Filter out empty fields
     const updatedData = Object.fromEntries(
       Object.entries(formData).filter(([_, value]) => value.trim())
     );

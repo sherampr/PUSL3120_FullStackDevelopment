@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models/userModel");
 const router = express.Router();
 
-// Middleware to authenticate token
 const authenticateToken = async (req, res, next) => {
   const token = req.headers["x-auth-token"];
   if (!token) {
@@ -19,7 +18,7 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-// Endpoint to get user details
+//  getting user details
 router.get("/", authenticateToken, async (req, res) => {
   try {
     const userData = await User.findById(req.user._id).select("-password");
@@ -32,7 +31,7 @@ router.get("/", authenticateToken, async (req, res) => {
   }
 });
 
-// Endpoint to update user details
+//  update user details
 router.put("/", authenticateToken, async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.user._id, req.body, {
@@ -47,7 +46,7 @@ router.put("/", authenticateToken, async (req, res) => {
   }
 });
 
-// Endpoint to delete user account
+// delete user account
 router.delete("/", authenticateToken, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.user._id);
