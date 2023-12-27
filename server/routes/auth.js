@@ -3,6 +3,11 @@ const { User } = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 
+const logout = () => {
+  localStorage.removeItem("token");
+  window.location = "/";
+};
+
 router.post("/", async (req, res) => {
   try {
     const { error } = validate(req.body);
@@ -34,5 +39,5 @@ const validate = (data) => {
   });
   return schema.validate(data);
 };
-
+module.exports.logout = logout;
 module.exports = router;
