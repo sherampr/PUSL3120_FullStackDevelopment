@@ -40,14 +40,14 @@ const LoginPage = () => {
       <div className="login-container">
         <form className="login-form" onSubmit={handleSubmit}>
           <h2>Login your Account</h2>
-          <h4>email</h4>
+          <h4>Email</h4>
           <input
             type="email"
             name="email"
             placeholder="Enter your Email here"
             onChange={handleChange}
           />
-          <h4>password</h4>
+          <h4>Password</h4>
           <input
             type="password"
             name="password"
