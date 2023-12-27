@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import './form.css'
 
 
 function BookingForm() {
@@ -13,7 +14,8 @@ function BookingForm() {
   };
 
   return (
-    <div className="booking-form-container">
+    <div className>
+      <div className='booking-form-container'>
       <h1>Hotel booking</h1>
       <h3>Experience something new</h3>
       <form onSubmit={handleSubmit}>
@@ -55,6 +57,9 @@ function BookingForm() {
         </table>
         <button type="submit">confirm</button>
       </form>
+
+
+      </div>
     </div>
   );
 }
