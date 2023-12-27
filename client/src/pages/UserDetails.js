@@ -68,7 +68,7 @@ const UserDetails = () => {
             <FaUserEdit
               size={25}
               onMouseOver={({ target }) => (target.style.color = "black")}
-              onMouseOut={({ target }) => (target.style.color = "gray")}
+              onMouseOut={({ target }) => (target.style.color = "purple")}
             />
           </Link>
         </div>
