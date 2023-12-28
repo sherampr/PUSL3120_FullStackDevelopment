@@ -27,13 +27,13 @@ app.use('/api/workouts/', workoutRoutes);
 
 
 //connect to db
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONG_URI)
 .then(()=>{
   
 //listening for requests
 app.listen(process.env.PORT,()=>{
 
-  console.log("listening on port",process.env.PORT)
+  console.log("connecting to db and listening on port",process.env.PORT)
 
 })
 
