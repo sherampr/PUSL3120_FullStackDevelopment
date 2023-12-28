@@ -14,7 +14,7 @@ function BookingForm() {
   };
 
   return (
-    <div className>
+    <div>
       <div className='booking-form-container'>
       <h1>Hotel booking</h1>
       <h3>Experience something new</h3>

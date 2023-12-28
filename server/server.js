@@ -10,6 +10,8 @@ const workoutRoutes=require('./routes/workouts')
 require('dotenv').config()
 
 //middleware
+app.use(express.json())
+
 app.use((req,res,next)=>{
 
     console.log(req.path,req.method)
@@ -19,7 +21,7 @@ app.use((req,res,next)=>{
 })
 
 //routes
-app.use('api/routes',workoutRoutes)
+app.use('/api/workouts/', workoutRoutes);
 
 //listening for requests
 app.listen(process.env.PORT,()=>{
