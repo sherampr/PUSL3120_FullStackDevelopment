@@ -1,27 +1,31 @@
 .newroom{
     position: relative;
     min-height: 500px;
-  background-position: center center;
-  
+ 
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
 }
 .container{
     background-color: #ffffff;
     width: 70%;
     min-width: 420px;
     padding: 35px 50px;
-    transform: translate(-50%,-50%);
+    /* transform: translate(-50%,-50%);
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 50%; */
     border-radius: 10px;
     box-shadow: 20px 30px 25px rgba(0,0,0,0.15);
+    margin: 60px;
 }
 h1{
     font-size: 30px;
     text-align: center;
     color: #1c093c;
 }
-p{
+/* p{
     position: relative;
     margin: auto;
     width: 100%;
@@ -29,8 +33,8 @@ p{
     color: #606060;
     font-size: 14px;
     font-weight: 400;
-}
-form{
+} */
+container.form{
     width: 100%;
     position: relative;
     margin: 30px auto 0 auto;
@@ -47,7 +51,7 @@ label{
     font-size: 14px;
 }
 textarea,
-input{
+.row input{
     width: 100%;
     font-weight: 400;
     padding: 8px 10px;

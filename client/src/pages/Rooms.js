@@ -22,7 +22,7 @@ const Rooms = ()=>{
 
     return(
         <section className="">
-        
+                 <h2 class="section__header">Felicon Hotel Rooms</h2>
           <div className="cards-wrapper">
             {roomTypes && roomTypes.map((roomType)=>(
                  <RoomTypeDetails key={roomType._id} roomType={roomType}/>
