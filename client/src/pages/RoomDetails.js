@@ -1,10 +1,9 @@
 import React, { forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate} from "react-router-dom"
 import { useEffect, useState } from "react"
 import '../styles/RoomDetails.css'
-import SearchIcon from '@mui/icons-material/Search';
 
 const CustomInput = forwardRef(({ value, onClick }, ref) => (
  <div class="input__group" onClick={onClick} ref={ref}>
@@ -17,6 +16,7 @@ const RoomDetails = () => {
     const { id } = useParams()
     const [roomTypes, setroomTypes] = useState(null)
     const [checkInDate, setCheckInDate] = useState(null);
+    const navigate = useNavigate();
 
  
 
@@ -52,7 +52,10 @@ const [checkOutDate, setCheckOutDate] = useState(null);
     if (!roomTypes) {
         return <div>Loading...</div>
     }
-
+    const handleBooking = () => {
+      navigate('/booking-confirmation', { state: { checkInDate, checkOutDate } });
+  };
+  
     return (
       <div className='RoomDetails'>
         <section class="section__container header__container">
@@ -88,7 +91,8 @@ const [checkOutDate, setCheckOutDate] = useState(null);
 </div>
           </form>
           {roomTypes.roomCapacity > 0 ? 
-          <div class="BookButton"><p>Book Now</p></div> : 
+          <div className="BookButton" onClick={handleBooking}><p>Book Now</p></div>
+          : 
           <div class="BookButton"><p>Rooms unavailable</p></div>}
         </div>
       </div>
