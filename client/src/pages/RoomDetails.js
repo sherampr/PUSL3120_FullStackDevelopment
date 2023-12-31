@@ -5,11 +5,11 @@ import { useParams, useNavigate} from "react-router-dom"
 import { useEffect, useState } from "react"
 import '../styles/RoomDetails.css'
 
-const CustomInput = forwardRef(({ value, onClick }, ref) => (
- <div class="input__group" onClick={onClick} ref={ref}>
-    <input type="text" value={value} readOnly />
-    <label>{value ? '' : 'Select Date'}</label>
- </div>
+const CustomInput = forwardRef(({ value, onClick, isDisabled }, ref) => (
+  <div className="input__group" onClick={onClick} ref={ref}>
+      <input type="text" value={value} readOnly />
+      <label>{value ? '' : (isDisabled ? 'Unavailable' : 'Select Date')}</label>
+  </div>
 ));
 
 const RoomDetails = () => {
@@ -55,12 +55,24 @@ const [checkOutDate, setCheckOutDate] = useState(null);
     const handleBooking = () => {
       navigate('/booking-confirmation', { state: { checkInDate, checkOutDate } });
   };
+
+  //Disable date pickers if room capacity is 0
+    const isDatePickerDisabled = roomTypes.roomCapacity === 0;
+
+  const mainImageUrl = roomTypes.typeImages.find(img => img.isMain)?.url || 'default_image_url';
+
+  const midPoint = Math.ceil(roomTypes.amenities.length / 2);
+  const leftAmenities = roomTypes.amenities.slice(0, midPoint);
+  const rightAmenities = roomTypes.amenities.slice(midPoint);
+
+
+  
   
     return (
       <div className='RoomDetails'>
         <section class="section__container header__container">
              <h2 class="section__header">{roomTypes.typeName}</h2>
-      <div class="header__image__container">
+             <div className="room__image__container" style={{ backgroundImage: `url(${mainImageUrl})` }}>
         <div class="header__content">
         </div>
         <div class="booking___container">
@@ -68,24 +80,26 @@ const [checkOutDate, setCheckOutDate] = useState(null);
            
           <div class="form__group">
  <div class="input__group">
-    <DatePicker
-      selected={checkInDate}
-      onChange={(date) => setCheckInDate(date)}
-      dateFormat="MMMM d, yyyy"
-      customInput={<CustomInput />}
-    />
+ <DatePicker
+                                selected={checkInDate}
+                                onChange={(date) => setCheckInDate(date)}
+                                dateFormat="MMMM d, yyyy"
+                                customInput={<CustomInput isDisabled={isDatePickerDisabled} />}
+                                disabled={isDatePickerDisabled}
+                            />
  </div>
  <p>Check-in date</p>
 </div>
 <div class="form__group">
  <div class="input__group">
  <DatePicker
- selected={checkOutDate}
- onChange={(date) => handleCheckOutDateChange(date)}
- dateFormat="MMMM d, yyyy"
- isWeekdayBlocked={isWeekdayBlocked}
- customInput={<CustomInput />}
-/>
+                                selected={checkOutDate}
+                                onChange={(date) => handleCheckOutDateChange(date)}
+                                dateFormat="MMMM d, yyyy"
+                                isWeekdayBlocked={isWeekdayBlocked}
+                                customInput={<CustomInput isDisabled={isDatePickerDisabled} />}
+                                disabled={isDatePickerDisabled}
+                            />
  </div>
  <p>Check-out date</p>
 </div>
@@ -104,6 +118,25 @@ const [checkOutDate, setCheckOutDate] = useState(null);
         <p>{roomTypes.typeDescription}</p>
       </div>
     </section>
+
+    
+    <section class="section__container">
+                <div class="reward__container">
+                    <h2>Amenities</h2>
+                    <div className='amenities'>
+                        <div class="amenities__left">
+                            {leftAmenities.map((amenity, index) => (
+                                <p key={index}>{amenity}</p>
+                            ))}
+                        </div>
+                        <div class="amenities__right">
+                            {rightAmenities.map((amenity, index) => (
+                                <p key={index}>{amenity}</p>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
 
 
     </div>
