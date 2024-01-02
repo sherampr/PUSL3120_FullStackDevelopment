@@ -5,17 +5,17 @@ const Home = ()=>{
        
     const [roomTypes,setRoomTypes]=useState(null)
 
-    useEffect(()=>{
-        const fetchRoomTypes = async()=>{
-            const response = await fetch('/api/roomtypes')
-            const json = await response.json()
+    useEffect(() => {
+      const fetchRoomTypes = async () => {
+          const response = await fetch('/api/roomtypes');
+          const json = await response.json();
 
-            if(response){
-                setRoomTypes(json)
-            }
-        }
-        fetchRoomTypes()
-    },[])
+          if (response.ok) {
+              setRoomTypes(json);
+          }
+      };
+      fetchRoomTypes();
+  }, []);
     
 
     return(
@@ -28,25 +28,27 @@ const Home = ()=>{
         </div>
         </div>
 
-        <section class="section__container ">
-      <h2 class="section__header">Felicon Hotel Rooms</h2>
-      <div className="room_cards">
-        {roomTypes && roomTypes.map(roomType =>(
-            <div className="room__card" key={roomType._id}>
-                 <Link to={`/room-details/${roomType._id}`}>
-                <img src={roomType.typeImages.find(img => img.isMain)?.url} alt="popular hotel" />
-            </Link>
-                <div className="popular__content">
-                    <div className="room__card__header">
-                        <h4>{roomType.typeName}</h4>
-                        <h4>LKR {roomType.typePrice}</h4>
-                    </div>
-                    <p>{roomType.location}</p>
+        <section class="section__container">
+                <h2 class="section__header">Felicon Hotel Rooms</h2>
+                <div className="room_cards">
+                {roomTypes && roomTypes
+                        .filter(roomType => roomType.displayInHome === "true" || roomType.displayInHome === undefined) // Adjusted filter condition
+                        .map(roomType => (
+                            <div className="room__card" key={roomType._id}>
+                                <Link to={`/room-details/${roomType._id}`}>
+                                    <img src={roomType.typeImages.find(img => img.isMain)?.url} alt={roomType.typeName} />
+                                </Link>
+                                <div className="popular__content">
+                                    <div className="room__card__header">
+                                        <h4>{roomType.typeName}</h4>
+                                        <h4>LKR {roomType.typePrice}</h4>
+                                    </div>
+                                    <p>{roomType.location}</p>
+                                </div>
+                            </div>
+                        ))}
                 </div>
-            </div>
-        ))}
-    </div>
-        </section>
+            </section>
 
 
 

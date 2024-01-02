@@ -27,6 +27,9 @@ const roomTypeSchema = new mongoose.Schema({
     typeImages: [ImageSchema]
 }, {
     timestamps: true
+},
+{
+    displayInHome: false
 });
 
 // Ensure that at least one image with isMain set to true exists for each room type

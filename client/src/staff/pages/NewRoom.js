@@ -9,50 +9,55 @@ const NewRoom = () => {
     amenities: '',
     typeDescription: '',
     roomCapacity: '',
-    typeImages: ''
-});
+    typeImages: []
+  });
 
-const handleChange = (e) => {
-    setRoomType({ ...roomType, [e.target.name]: e.target.value });
-};
+  const handleChange = (e) => {
+    if(e.target.name === 'typeImages') {
+      setRoomType({ ...roomType, [e.target.name]: e.target.value.split(',') });
+    } else {
+      setRoomType({ ...roomType, [e.target.name]: e.target.value });
+    }
+  };
 
-const addImage = () => {
-    setRoomType({ ...roomType, typeImages: [...roomType.typeImages, ''] });
-};
-
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { typeName, typePrice, amenities, typeDescription, roomCapacity, typeImages } = roomType;
 
     const newRoomType = {
-        typeName,
-        typePrice,
-        amenities: amenities.split(','),
-        typeDescription,
-        roomCapacity,
-        imageUrls: typeImages.split(',').map((url, index) => ({ url, isMain: index === 0 }))
+      typeName,
+      typePrice,
+      amenities: amenities.split(','),
+      typeDescription,
+      roomCapacity,
+      imageUrls: typeImages.map((url, index) => ({ url, isMain: index === 0 }))
     };
 
     try {
-        await axios.post('/api/roomtypes', newRoomType);
-        alert('Room Type Added Successfully');
-        setRoomType({
-            typeName: '',
-            typePrice: '',
-            amenities: '',
-            typeDescription: '',
-            roomCapacity: '',
-            typeImages: ''
-        });
+      await axios.post('/api/roomtypes', newRoomType);
+      alert('Room Type Added Successfully');
+      setRoomType({
+        typeName: '',
+        typePrice: '',
+        amenities: '',
+        typeDescription: '',
+        roomCapacity: '',
+        typeImages: []
+      });
     } catch (err) {
-        console.error(err);
-        alert('Error Adding Room Type');
+      console.error(err);
+      alert('Error Adding Room Type');
     }
-};
-    
+  };
+ 
      return (
+      
+      <div className=''>
+     
+      
         <div className='newroom'>
+          
         <div className="container">
           <h1>Add a Room Type</h1>
           <form onSubmit={handleSubmit}>
@@ -128,7 +133,7 @@ const handleSubmit = async (e) => {
             <button type="submit">Submit</button>
           </form>
         </div>
-        </div>
+        </div></div>
      );
 };
 

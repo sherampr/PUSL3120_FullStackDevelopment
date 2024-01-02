@@ -4,7 +4,8 @@ import Navbar from './components/Navbar';
 import Rooms from './pages/Rooms';
 import Footer from './components/Footer';
 import RoomDetails from './pages/RoomDetails';
-import NewRoom from './pages/NewRoom';
+import NewRoom from './staff/pages/NewRoom';
+import UpdateRoom from './staff/pages/UpdateRoom';
 // import { BookingProvider } from './contexts/BookingContext';
 import BookingConfirmation  from './pages/BookingConfirmation';
 function App() {
@@ -26,6 +27,9 @@ function App() {
        <Route path="/room-details/:id" element={<RoomDetails/>} />
 
        <Route path="/newroom" element={<NewRoom/>} />
+
+       <Route path="/updateroom" element={<UpdateRoom/>} />
+
         <Route path="/booking-confirmation" element={<BookingConfirmation />} />
           </Routes>
         </div>
