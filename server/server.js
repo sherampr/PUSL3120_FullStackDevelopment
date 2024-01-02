@@ -1,45 +1,34 @@
-const express=require('express')
+// server.js
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const bookingRoutes = require('./routes/bookingRoutes');
 
-//express app
-const app=express()
-
-
-const workoutRoutes=require('./routes/workouts')
-
-const mongoose=require('mongoose')
-
-
-require('dotenv').config()
-
-//middleware
-app.use(express.json())
-
-app.use((req,res,next)=>{
-
-    console.log(req.path,req.method)
-    next()
-
-    
-})
-
-//routes
-app.use('/api/workouts/', workoutRoutes);
+// Load environment variables from a .env file (optional)
+require('dotenv').config();
 
 
-//connect to db
-mongoose.connect(process.env.MONG_URI)
-.then(()=>{
-  
-//listening for requests
-app.listen(process.env.PORT,()=>{
-
-  console.log("connecting to db and listening on port",process.env.PORT)
-
-})
+const app = express();
+const port = process.env.PORT ; // Use 3001 as the default port if PORT is not defined
 
 
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_URI, {
+  // Remove the deprecated options
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  // Add any other options you may need
+});
 
-})
-.catch((error)=>{
-  console.log(error)
-})
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// Routes
+app.use('/api/bookings', bookingRoutes);
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});

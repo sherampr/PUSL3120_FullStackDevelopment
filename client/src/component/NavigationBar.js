@@ -1,20 +1,18 @@
+// NavigationBar.js
+
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import './navigationBar.css';
 
-
-// NavigationBar component
 const NavigationBar = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/list">Booking List</Link>
-        </li>
-      </ul>
-    </nav>
+    <div className="navbar">
+      <a className="nav-link" href="/">
+        Booking form
+      </a>
+      <a className="nav-link" href="/list">
+        Booking List
+      </a>
+    </div>
   );
 };
 
