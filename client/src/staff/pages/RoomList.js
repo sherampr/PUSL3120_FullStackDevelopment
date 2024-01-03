@@ -65,7 +65,7 @@ function RoomList() {
                         <div className="col col-2" data-label="Type Price">{roomType.typePrice}</div>
                         <div className="col col-3" data-label="Room Capacity">{roomType.roomCapacity}</div>
                         <div className="col col-4" data-label="Actions">
-                        <Link to={`/updateroom/${roomType._id}`}>
+                        <Link to={`/staff/updateroom/${roomType._id}`}>
                             <button className="updateBtn" onClick={() => handleUpdate(roomType._id)}>Update</button>
                             </Link>
                             <button className="deleteBtn" onClick={() => handleDelete(roomType._id)}>Delete</button>

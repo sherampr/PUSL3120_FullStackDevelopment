@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom'
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Rooms from './pages/Rooms';
@@ -9,12 +9,13 @@ import RoomList from './staff/pages/RoomList';
 import UpdateRoom from './staff/pages/UpdateRoom';
 // import { BookingProvider } from './contexts/BookingContext';
 import BookingConfirmation  from './pages/BookingConfirmation';
+import StaffNavbar from './staff/components/StaffNavbar';
 function App() {
   return (
     <div className="App">
      <BrowserRouter>
  
-     <Navbar/>
+     <NavbarSwitcher/>
         <div className='pages'>
           <Routes>
             <Route
@@ -27,10 +28,10 @@ function App() {
       />
        <Route path="/room-details/:id" element={<RoomDetails/>} />
 
-       <Route path="/newroom" element={<NewRoom/>} />
+       <Route path="/staff/newroom" element={<NewRoom/>} />
 
-       <Route path="/updateroom/:id" element={<UpdateRoom/>} />
-       <Route path="/roomlist" element={<RoomList/>} />
+       <Route path="/staff/updateroom/:id" element={<UpdateRoom/>} />
+       <Route path="/staff" element={<RoomList/>} />
 
         <Route path="/booking-confirmation" element={<BookingConfirmation />} />
           </Routes>
@@ -41,6 +42,16 @@ function App() {
      </BrowserRouter>
     </div>
   );
+}
+
+function NavbarSwitcher() {
+  const location = useLocation();
+
+  // Check if the current path is one of the staff paths
+  const isStaffPage = location.pathname.includes('/staff'); // Modify this as per your route structure
+
+  // Return the appropriate navbar
+  return isStaffPage ? <StaffNavbar /> : <Navbar />;
 }
 
 export default App;

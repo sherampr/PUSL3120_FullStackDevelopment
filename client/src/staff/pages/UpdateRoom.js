@@ -72,7 +72,7 @@ const UpdateRoom = ({ match }) => {
     try {
       await axios.put(`/api/roomtypes/${id}`, updatedRoomType);
       alert('Room Type Updated Successfully');
-      navigate('/roomlist');
+      navigate('/staff');
       // Optionally, redirect or fetch updated data here
     } catch (err) {
       console.error(err);

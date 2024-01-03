@@ -11,9 +11,12 @@ const StaffNavbar = ()=>{
                 </Link>
             </div>
             <div className="nav__links">
-            <Link className="link" to="/newroom">
+            <Link className="link" to="/staff/newroom">
                     <h5>New Room</h5>
                 </Link>
+
+                
+
                 <Link className="link" to="/">
                     <h5>Services</h5>
                 </Link>
