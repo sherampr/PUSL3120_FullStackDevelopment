@@ -4,6 +4,11 @@ const RoomType = require('../models/roomTypeModel');
 
 // Mock the RoomType model
 jest.mock('../models/roomTypeModel');
+RoomType.findByIdAndDelete = jest.fn();
+// Mock the findById and save methods for RoomType
+RoomType.findById = jest.fn();
+RoomType.prototype.save = jest.fn();
+
 
 const mockRoomTypes = [
     {
@@ -166,8 +171,10 @@ expect(response.statusCode).toBe(200);
 expect(response.body).toEqual(expectedRoomTypes);
         });
 
-        // Add more tests for error scenarios
-    });
+        
+
+
+
 
     // Test for GET a single room type
     describe('GET /roomTypes/:id', () => {
@@ -181,8 +188,67 @@ expect(response.body).toEqual(expectedRoomType);
         // Add more tests for error scenarios
     });
 
+    
     // Similar test suites for POST, DELETE, and PUT endpoints
 });
+
+describe('DELETE /roomTypes/:id', () => {
+    test('should delete a room type and return the deleted room type', async () => {
+        const roomId = "657fe9073d78af57245f0212"; // Example ID to be deleted
+
+        // Setup the mock to simulate the deletion
+        RoomType.findByIdAndDelete.mockResolvedValue({
+            _id: roomId,
+            typeName: "Trefolo Ultra Luxury Suite",
+            // ... other properties
+        });
+
+        const response = await request(app).delete(`/api/roomtypes/${roomId}`);
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toHaveProperty('_id', roomId);
+        // Add more assertions as needed
+    });
+
+    
+});
+
+describe('PUT /roomTypes/:id', () => {
+    const roomId = "someRoomId";
+    const updateData = {
+        typeName: "Updated Suite",
+        typePrice: 10000,
+        amenities: ["Updated Amenity1", "Updated Amenity2"],
+        typeDescription: "Updated description",
+        roomCapacity: 2,
+        imageUrls: [{ url: "https://example.com/image1.jpg", isMain: true }]
+    };
+
+    test('should update a room type successfully', async () => {
+        // Create a mock instance of RoomType
+        const mockRoomTypeInstance = {
+            ...updateData,
+            save: jest.fn().mockResolvedValue({
+                _id: roomId,
+                ...updateData
+            })
+        };
+
+        // Mock findById to return the mock instance
+        RoomType.findById.mockResolvedValue(mockRoomTypeInstance);
+
+        const response = await request(app).put(`/api/roomtypes/${roomId}`).send(updateData);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toMatchObject(updateData);
+        expect(RoomType.findById).toHaveBeenCalledWith(roomId);
+        expect(mockRoomTypeInstance.save).toHaveBeenCalled(); // Check if save was called on the instance
+    });
+
+    // Other tests...
+});
+
+
+
 
 afterEach(() => {
     jest.clearAllMocks();

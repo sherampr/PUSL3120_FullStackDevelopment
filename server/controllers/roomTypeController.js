@@ -56,7 +56,9 @@ const deleteRoomType = async (req, res) => {
 }
 
 //update a room type
-const updateRoomType = async (req, res) => { const { typeName,typePrice, amenities, typeDescription, roomCapacity, imageUrls } = req.body;
+const updateRoomType = async (req, res) => { 
+    
+const { typeName,typePrice, amenities, typeDescription, roomCapacity, imageUrls } = req.body;
 
 // Validate request parameters
 if (!typeName || !typePrice || !amenities || !typeDescription || !roomCapacity || !imageUrls) {
