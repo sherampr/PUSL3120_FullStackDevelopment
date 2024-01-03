@@ -67,7 +67,7 @@ input:focus{
     outline: none;
     border-color: #6f6df4;
 }
-button{
+.newroom button{
     border: none;
     padding: 10px 20px;
     background: linear-gradient(

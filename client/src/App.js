@@ -5,6 +5,7 @@ import Rooms from './pages/Rooms';
 import Footer from './components/Footer';
 import RoomDetails from './pages/RoomDetails';
 import NewRoom from './staff/pages/NewRoom';
+import RoomList from './staff/pages/RoomList';
 import UpdateRoom from './staff/pages/UpdateRoom';
 // import { BookingProvider } from './contexts/BookingContext';
 import BookingConfirmation  from './pages/BookingConfirmation';
@@ -28,7 +29,8 @@ function App() {
 
        <Route path="/newroom" element={<NewRoom/>} />
 
-       <Route path="/updateroom" element={<UpdateRoom/>} />
+       <Route path="/updateroom/:id" element={<UpdateRoom/>} />
+       <Route path="/roomlist" element={<RoomList/>} />
 
         <Route path="/booking-confirmation" element={<BookingConfirmation />} />
           </Routes>
