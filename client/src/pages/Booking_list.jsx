@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './BookingList.css'; // Import the CSS file
 
 export default function BookingList() {
   const [bookings, setBookings] = useState([]);
@@ -21,12 +22,12 @@ export default function BookingList() {
   return (
     <div>
       <h1>Bookings available</h1>
-      <table border="1">
+      <table className="booking-table">
         <thead>
           <tr>
             <th>Customer name</th>
-            <th>Check in date</th>
-            <th>Check out date</th>
+            <th>Check-in date</th>
+            <th>Check-out date</th>
             <th>Number of guests</th>
           </tr>
         </thead>
@@ -34,8 +35,8 @@ export default function BookingList() {
           {bookings.map((booking, index) => (
             <tr key={index}>
               <td>{`${booking.firstName} ${booking.lastName}`}</td>
-              <td>{booking.checkinDate}</td>
-              <td>{booking.checkoutDate}</td>
+              <td>{new Date(booking.checkinDate).toLocaleDateString()}</td>
+               <td>{new Date(booking.checkoutDate).toLocaleDateString()}</td>
               <td>{booking.guestNumber}</td>
             </tr>
           ))}

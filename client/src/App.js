@@ -12,6 +12,7 @@ function App() {
     <div className="App">
       <Router>
         <NavigationBar />
+        <br/>
         <Switch>
           <Route path="/" exact component={BookingForm} />
           <Route path="/list" component={BookingList} />

@@ -8,9 +8,8 @@ function BookingForm() {
   const [lastName, setLastName] = useState('');
   const [checkinDate, setCheckinDate] = useState(null);
   const [checkoutDate, setCheckoutDate] = useState(null);
-  const[guestNumber,setGuestnum]=useState('');
+  const [guestNumber, setGuestNumber] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +38,8 @@ function BookingForm() {
       if (response.ok) {
         // Handle success (e.g., show a success message)
         console.log('Booking submitted successfully');
+        // You may want to reset the form after successful submission
+        resetForm();
       } else {
         // Handle error (e.g., show an error message)
         console.error('Failed to submit booking');
@@ -50,69 +51,76 @@ function BookingForm() {
     }
   };
 
+  const resetForm = () => {
+    setFirstName('');
+    setLastName('');
+    setCheckinDate(null);
+    setCheckoutDate(null);
+    setGuestNumber('');
+    setErrorMessage('');
+  };
+
   return (
     <div>
       <div className='booking-form-container'>
         <h1>Booking confirmation</h1>
-        <h3>Experience something new</h3>
-        <form onSubmit={handleSubmit}>
-          <table>
-            <tbody>
-              <tr>
-                <td>First name</td>
-                <td>
-                  <input
-                    type="text"
-                    placeholder="Enter first name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Last name</td>
-                <td>
-                  <input
-                    type="text"
-                    placeholder="Enter last name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Select check-in</td>
-                <td>
-                  <DatePicker
-                    selected={checkinDate}
-                    onChange={(date) => setCheckinDate(date)}
-                    placeholderText="Select check-in date"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Select check-out</td>
-                <td>
-                  <DatePicker
-                    selected={checkoutDate}
-                    onChange={(date) => setCheckoutDate(date)}
-                    placeholderText="Select check-out date"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Select number of guest</td>
-                <td>
-                  <input type="number"
-                  value={guestNumber}
-                  onChange={(e) => setGuestnum(e.target.value)}
 
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="submit">confirm</button>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>First name</label>
+            <input
+              type="text"
+              placeholder="Enter first name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Last name</label>
+            <input
+              type="text"
+              placeholder="Enter last name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Check-in date</label>
+            <DatePicker
+              selected={checkinDate}
+              onChange={(date) => setCheckinDate(date)}
+              placeholderText="Select check-in date"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Check-out date</label>
+            <DatePicker
+              selected={checkoutDate}
+              onChange={(date) => setCheckoutDate(date)}
+              placeholderText="Select check-out date"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Select number of guests</label>
+            <input
+              type="number"
+              value={guestNumber}
+              onChange={(e) => setGuestNumber(e.target.value)}
+            />
+          </div>
+
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+
+          <div className="form-buttons">
+            <button type="submit">Confirm</button>
+            <button type="button" onClick={resetForm}>
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>
