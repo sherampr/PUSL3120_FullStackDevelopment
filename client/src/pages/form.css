@@ -6,3 +6,10 @@
     height: 100vh; /* Adjust the height as needed */
   }
   
+
+  /* Add this to your form.css or create a new CSS file */
+.error-message {
+  color: #ff0000; /* Red color for error messages */
+  margin-top: 10px; /* Adjust the top margin for spacing */
+  font-size: 14px; /* Adjust the font size */
+}

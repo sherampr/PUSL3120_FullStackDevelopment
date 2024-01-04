@@ -1,33 +1,46 @@
-import react from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function BookingList() {
-    return (
-      <div>
-        <h1>Bookings available</h1>
-        <table border="1">
-          <thead>
-            <tr>
-              <th>Customer name</th>
-              <th>Room type</th>
-              <th>Room number</th>
-              <th>Check in date</th>
-              <th>Check out date</th>
-              <th>Number of guests</th>
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    // Fetch bookings from the server
+    fetchBookings();
+  }, []);
+
+  const fetchBookings = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/bookings');
+      const data = await response.json();
+      setBookings(data);
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Bookings available</h1>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Customer name</th>
+            <th>Check in date</th>
+            <th>Check out date</th>
+            <th>Number of guests</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bookings.map((booking, index) => (
+            <tr key={index}>
+              <td>{`${booking.firstName} ${booking.lastName}`}</td>
+              <td>{booking.checkinDate}</td>
+              <td>{booking.checkoutDate}</td>
+              <td>{booking.guestNumber}</td>
             </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Chenuka</td>
-              <td>Deluxe</td>
-              <td>Room number:1</td>
-              <td>12/27/2023</td>
-              <td>12/30/2023</td>
-              <td>4</td>
-            </tr>
-            {/* Add more rows as needed */}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-  
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
