@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import UserDetails from "./pages/UserDetails";
 import Userupdate from "./pages/UserUpdate";
+import Users from "./pages/Users";
 function App() {
   return (
     <div className="App">
@@ -22,6 +23,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/UserDetails" element={<UserDetails />} />
             <Route path="/Userupdate" element={<Userupdate />} />
+            <Route path="/Users" element={<Users />} />
           </Routes>
         </div>
         <Footer />

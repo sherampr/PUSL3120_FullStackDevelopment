@@ -8,6 +8,7 @@ const roomTypeRoutes = require("./routes/roomTypes");
 const registerRoutes = require("./routes/register");
 const authRoutes = require("./routes/auth");
 const userDetailRoutes = require("./routes/userDetails");
+const userDataRoutes = require("./routes/Data");
 
 const app = express();
 //middleware
@@ -24,7 +25,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/roomtypes", roomTypeRoutes);
 app.use("/api/users", registerRoutes);
 app.use("/api/users", userDetailRoutes);
-
+app.use("/api/users", userDataRoutes);
 //DB connection
 mongoose
   .connect(process.env.MONG_URI)
