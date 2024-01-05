@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import '../styles/BookingList.css'; // Import the CSS file
-import { useLocation } from 'react-router-dom';
-const location = useLocation();
-const { checkInDate, checkOutDate } = location.state;
+import React, { useEffect, useState } from "react";
+import "../styles/BookingList.css";
+import { useLocation } from "react-router-dom";
 
 export default function BookingList() {
   const [bookings, setBookings] = useState([]);
+  const location = useLocation();
+  const { checkInDate, checkOutDate } = location.state || {}; // Added default empty object
 
   useEffect(() => {
-    // Fetch bookings from the server
     fetchBookings();
   }, []);
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/bookings');
+      const response = await fetch("http://localhost:4000/api/bookings");
       const data = await response.json();
       setBookings(data);
     } catch (error) {
-      console.error('Error fetching bookings:', error);
+      console.error("Error fetching bookings:", error);
     }
   };
 
@@ -38,8 +37,14 @@ export default function BookingList() {
           {bookings.map((booking, index) => (
             <tr key={index}>
               <td>{`${booking.firstName} ${booking.lastName}`}</td>
-              <td>{checkInDate && checkInDate.toLocaleDateString()}</td>
-               <td>{checkOutDate && checkOutDate.toLocaleDateString()}</td>
+              <td>
+                {checkInDate ? new Date(checkInDate).toLocaleDateString() : ""}
+              </td>
+              <td>
+                {checkOutDate
+                  ? new Date(checkOutDate).toLocaleDateString()
+                  : ""}
+              </td>
               <td>{booking.guestNumber}</td>
             </tr>
           ))}
