@@ -60,4 +60,16 @@
     background-color: red;
     color: white;
   }
+  .h1{
+    font-size: large;
+    border-bottom: 3px solid black;
+  }
+  .booking_details {
+    width: 70%;
+    background-color: white;
+    padding: 2rem 2rem;
+    margin: auto;
+    border: 2px solid black;
+    position: relative; 
+  }
   

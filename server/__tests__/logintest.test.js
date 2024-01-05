@@ -10,7 +10,7 @@ describe("Authentication", () => {
   let userData = {
     firstName: "Test",
     lastName: "User",
-    email: "testthi5s@example.com",
+    email: "testthis@example.com",
     password: "Password@123",
     confirmPassword: "Password@123",
     phone: "1234567890",
@@ -36,7 +36,7 @@ describe("Authentication", () => {
   test("User registration", async () => {
     const newUser = {
       ...userData,
-      email: "new01testuser@example.com",
+      email: "newtestuser@example.com",
     };
 
     const response = await request(app).post("/api/users").send(newUser);
