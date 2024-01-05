@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import './BookingList.css'; // Import the CSS file
+import '../styles/BookingList.css'; // Import the CSS file
+import { useLocation } from 'react-router-dom';
+const location = useLocation();
+const { checkInDate, checkOutDate } = location.state;
 
 export default function BookingList() {
   const [bookings, setBookings] = useState([]);
@@ -35,8 +38,8 @@ export default function BookingList() {
           {bookings.map((booking, index) => (
             <tr key={index}>
               <td>{`${booking.firstName} ${booking.lastName}`}</td>
-              <td>{new Date(booking.checkinDate).toLocaleDateString()}</td>
-               <td>{new Date(booking.checkoutDate).toLocaleDateString()}</td>
+              <td>{checkInDate && checkInDate.toLocaleDateString()}</td>
+               <td>{checkOutDate && checkOutDate.toLocaleDateString()}</td>
               <td>{booking.guestNumber}</td>
             </tr>
           ))}

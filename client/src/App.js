@@ -8,7 +8,7 @@ import NewRoom from './staff/pages/NewRoom';
 import RoomList from './staff/pages/RoomList';
 import UpdateRoom from './staff/pages/UpdateRoom';
 // import { BookingProvider } from './contexts/BookingContext';
-import BookingConfirmation  from './pages/BookingConfirmation';
+import BookingForm  from './pages/BookingForm';
 import StaffNavbar from './staff/components/StaffNavbar';
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -40,7 +40,7 @@ function App() {
        <Route path="/staff/updateroom/:id" element={<UpdateRoom/>} />
        <Route path="/staff" element={<RoomList/>} />
 
-        <Route path="/booking-confirmation" element={<BookingConfirmation />} />
+        <Route path="/booking-confirmation" element={<BookingForm />} />
 
         <Route path="/Login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

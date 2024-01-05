@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const roomRoutes = require("./routes/rooms");
+// const roomRoutes = require("./routes/rooms");
 const roomTypeRoutes = require("./routes/roomTypes");
 const registerRoutes = require("./routes/register");
 const authRoutes = require("./routes/auth");
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 //routes
-app.use("/api/rooms", roomRoutes);
+// app.use("/api/rooms", roomRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/roomtypes", roomTypeRoutes);
 app.use("/api/users", registerRoutes);
