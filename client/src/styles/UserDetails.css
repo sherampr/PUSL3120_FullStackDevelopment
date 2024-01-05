@@ -1,0 +1,63 @@
+.hello {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-left: 5cm;
+  }
+  
+  .logout {
+    margin-right: 10cm;
+  }
+  
+  .logout button {
+    background-color: rgb(201, 7, 7);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .logout button:hover {
+    background-color: red;
+    color: white;
+  }
+  
+  .profile {
+    width: 70%;
+    background-color: white;
+    padding: 2rem 2rem;
+    margin: auto;
+    border: 2px solid black;
+    position: relative; 
+  }
+  
+  .profile h2 {
+    border-bottom: 3px solid black;
+  }
+  
+  .edit {
+    position: absolute; 
+    right: 0;
+    padding-right: 29px;
+  }
+  
+  .delete {
+    text-align: right;
+  }
+  
+  .delete button {
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid black;
+    background-color: transparent;
+    color: black;
+  }
+  
+  .delete button:hover {
+    background-color: red;
+    color: white;
+  }
+  

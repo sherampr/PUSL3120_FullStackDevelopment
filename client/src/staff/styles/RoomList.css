@@ -1,0 +1,125 @@
+.roomlist{
+    position: relative;
+    min-height: 500px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.ListContainer {
+    background-color: #ffffff;
+    width: 70%;
+    min-width: 420px;
+    padding: 35px 50px;
+    border-radius: 10px;
+    box-shadow: 20px 30px 25px rgba(0,0,0,0.15);
+    margin: 60px;
+  }
+  
+  h2 {
+    font-size: 26px;
+    margin: 20px 0;
+    text-align: center;
+   
+  }
+
+  .updateBtn{
+    border: none;
+    padding: 10px 20px;
+    background: #c29800;
+    color: #ffffff;
+    border-radius: 3px;
+    height: 50px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .updateBtn:hover{
+    border: none;
+    padding: 10px 20px;
+    background: #f3cd43;
+    color: #ffffff;
+    border-radius: 3px;
+    height: 50px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .deleteBtn:hover{
+    border: none;
+    padding: 10px 20px;
+    background: #e23232;
+    color: #ffffff;
+    border-radius: 3px;
+    height: 50px;
+    cursor: pointer;
+  }
+
+  .deleteBtn{
+    border: none;
+    padding: 10px 20px;
+    background: #b30000;
+    color: #ffffff;
+    border-radius: 3px;
+    height: 50px;
+    cursor: pointer;
+  }
+  .responsive-table {
+    li {
+      border-radius: 3px;
+      padding: 25px 30px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+    .table-header {
+      background-color: antiquewhite;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .table-row {
+      background-color: #ffffff;
+      box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    }
+    .col-1 {
+      flex-basis: 10%;
+    }
+    .col-2 {
+      flex-basis: 40%;
+    }
+    .col-3 {
+      flex-basis: 25%;
+    }
+    .col-4 {
+      flex-basis: 25%;
+    }
+    
+    @media all and (max-width: 767px) {
+      .table-header {
+        display: none;
+      }
+      .table-row{
+       
+      }
+      li {
+        display: block;
+      }
+      .col {
+        
+        flex-basis: 100%;
+        
+      }
+      .col {
+        display: flex;
+        padding: 10px 0;
+        &:before {
+          color: #6C7A89;
+          padding-right: 10px;
+          content: attr(data-label);
+          flex-basis: 50%;
+          text-align: right;
+        }
+      }
+    }
+  }
