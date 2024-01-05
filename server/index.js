@@ -27,15 +27,16 @@ app.use("/api/users", registerRoutes);
 app.use("/api/users", userDetailRoutes);
 app.use("/api/users", userDataRoutes);
 //DB connection
-mongoose
-  .connect(process.env.MONG_URI)
-  .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(`Connected to db and listening on port ${process.env.PORT}`);
+if (require.main === module) {
+    mongoose.connect(process.env.MONG_URI)
+    .then(() => {
+        app.listen(process.env.PORT, () => {
+            console.log("connected to db and listening on port ", process.env.PORT);
+        });
+    })
+    .catch((error) => {
+        console.log(error);
     });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+}
 
 module.exports = app;

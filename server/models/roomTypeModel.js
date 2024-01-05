@@ -25,25 +25,27 @@ const roomTypeSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    typeImages: [ImageSchema],
-  },
-  {
-    timestamps: true,
-  }
-);
+    typeImages: [ImageSchema]
+}, {
+    timestamps: true
+},
+{
+    displayInHome: false
+});
 
-roomTypeSchema.pre("save", function (next) {
-  if (this.typeImages.some((img) => img.isMain)) {
-    next();
-  } else {
-    const imageWithIsMain = this.typeImages.find((img) => img.url);
-    if (imageWithIsMain) {
-      imageWithIsMain.isMain = true;
-      next();
+// Ensure that at least one image with isMain set to true exists for each room type
+roomTypeSchema.pre('save', function(next) {
+    if (this.typeImages.some(img => img.isMain)) {
+        next();
     } else {
-      next(new Error("No images provided for the room type"));
+        const imageWithIsMain = this.typeImages.find(img => img.url);
+        if (imageWithIsMain) {
+            imageWithIsMain.isMain = true;
+            next();
+        } else {
+            next(new Error('No images provided for the room type'));
+        }
     }
-  }
 });
 
 module.exports = mongoose.model("RoomType", roomTypeSchema);

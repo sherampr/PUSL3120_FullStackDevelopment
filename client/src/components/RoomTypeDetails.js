@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/RoomPageStyles.css'
+import { Link } from 'react-router-dom';
 
 const RoomTypeDetails = ({roomType})=>{
     const mainImage = Array.isArray(roomType.typeImages) ? 
@@ -10,8 +11,10 @@ const RoomTypeDetails = ({roomType})=>{
                       { backgroundImage: `url(${mainImage.url})`, backgroundSize: 'cover' } : 
                       { backgroundColor: '#f0f0f0' }; // Fallback background color
     return(
+        
         <div className="card-grid-spac">
         <div className="num">
+        <Link to={`/room-details/${roomType._id}`}>
         <div className="card" style={cardStyle}>
             <h4>{roomType.typeName}</h4>
             {/* {mainImage && (
@@ -26,6 +29,7 @@ const RoomTypeDetails = ({roomType})=>{
                 ))}
             </ul> */}
             </div>
+            </Link>
         </div>
         </div>
     )

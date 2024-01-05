@@ -56,16 +56,45 @@ const deleteRoomType = async (req, res) => {
 }
 
 //update a room type
-const updateRoomType = async (req, res) => {
-    const { id } = req.params;
-    const { typeName, amenities, typeDescription, roomCapacity } = req.body;
-    try {
-        const roomType = await RoomType.findByIdAndUpdate(id, { typeName, amenities, typeDescription, roomCapacity }, { new: true });
-        res.status(200).json(roomType);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+const updateRoomType = async (req, res) => { 
+    
+const { typeName,typePrice, amenities, typeDescription, roomCapacity, imageUrls } = req.body;
+
+// Validate request parameters
+if (!typeName || !typePrice || !amenities || !typeDescription || !roomCapacity || !imageUrls) {
+    return res.status(400).json({ message: 'Please provide all necessary information for the room type' });
 }
+
+// Find the room type by its ID
+let roomType = await RoomType.findById(req.params.id);
+if (!roomType) {
+    return res.status(404).json({ message: 'Room type not found' });
+}
+
+// Update the room type fields
+roomType.typeName = typeName;
+roomType.typePrice = typePrice;
+roomType.amenities = amenities;
+roomType.typeDescription = typeDescription;
+roomType.roomCapacity = roomCapacity;
+
+// Convert the structured URLs to ImageSchema format
+let typeImages = imageUrls.map(image => ({
+    url: image.url,
+    contentType: 'image/jpeg', // Set a default or derive from URL
+    isMain: image.isMain || false // Set isMain based on the provided value
+}));
+
+// Replace the room type's images with the new ones
+roomType.typeImages = typeImages;
+
+try {
+    const updatedRoomType = await roomType.save();
+    res.status(200).json(updatedRoomType);
+} catch (err) {
+    res.status(400).json({ message: err.message });
+}
+};
 
 module.exports = {
     getAllRoomTypes,
