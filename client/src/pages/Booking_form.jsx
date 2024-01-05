@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './form.css';
+import BookingConfirmationModal from '../component/BookingConfirmationModel';
 
 function BookingForm() {
   const [firstName, setFirstName] = useState('');
@@ -19,6 +20,7 @@ function BookingForm() {
       setErrorMessage('Please fill in all fields');
       return;
     }
+    
 
     try {
       const response = await fetch('http://localhost:4000/api/bookings', {
@@ -51,6 +53,7 @@ function BookingForm() {
     }
   };
 
+  
   const resetForm = () => {
     setFirstName('');
     setLastName('');
@@ -123,6 +126,8 @@ function BookingForm() {
           </div>
         </form>
       </div>
+
+      
     </div>
   );
 }
