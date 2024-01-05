@@ -10,7 +10,7 @@ describe("Authentication", () => {
   let userData = {
     firstName: "Test",
     lastName: "User",
-    email: "testthis@example.com",
+    email: "testthi5s@example.com",
     password: "Password@123",
     confirmPassword: "Password@123",
     phone: "1234567890",
@@ -30,14 +30,13 @@ describe("Authentication", () => {
   }, 100000);
 
   afterAll(async () => {
-    await User.deleteOne({ email: userData.email });
     await mongoose.disconnect();
   });
 
   test("User registration", async () => {
     const newUser = {
       ...userData,
-      email: "newtestuser@example.com",
+      email: "new01testuser@example.com",
     };
 
     const response = await request(app).post("/api/users").send(newUser);
