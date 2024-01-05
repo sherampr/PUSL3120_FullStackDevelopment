@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../styles/UserDetails.css";
+import { IoTrashBinSharp } from "react-icons/io5";
 import { FaUserEdit } from "react-icons/fa";
 
 const UserDetails = () => {
@@ -79,6 +80,19 @@ const UserDetails = () => {
         <p>phone number: {data.phone}</p>
         <div className="delete">
           <button onClick={handleDeleteAccount}>Delete Account</button>
+        </div>
+      </div>
+      <div className="booking">
+        <h1>Booking details</h1>
+        <div className="booking_details">
+          <label>Room type</label>
+          <label>Check-in date</label>
+          <label>Check-out date</label>
+          <label>Room price</label>
+          <div className="delete_booking">
+            <IoTrashBinSharp size={35} />
+            <h5>created date</h5>
+          </div>
         </div>
       </div>
     </div>

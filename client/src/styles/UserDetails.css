@@ -60,9 +60,11 @@
     background-color: red;
     color: white;
   }
-  .h1{
-    font-size: large;
+  .booking h1{
     border-bottom: 3px solid black;
+    width: 70%;
+   margin-left: auto;
+   margin-right: auto;
   }
   .booking_details {
     width: 70%;
@@ -70,6 +72,13 @@
     padding: 2rem 2rem;
     margin: auto;
     border: 2px solid black;
-    position: relative; 
+    
+  }
+  .delete_booking {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
   }
   
+ 
