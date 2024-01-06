@@ -68,6 +68,18 @@ const UserDetails = () => {
     }
   };
 
+  const Reviewdelete = (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      axios.delete(`/api/reviews/${id}`, {
+        headers: { "x-auth-token": token },
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
+  };
+
   return (
     <div>
       <div className="hello">
