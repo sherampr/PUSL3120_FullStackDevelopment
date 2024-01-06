@@ -34,6 +34,20 @@ const UserDetails = () => {
     }
   }, [navigate]);
 
+  const [Reviews, setReviews] = useState(null)
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const response = await fetch('/api/reviews');
+      const json = await response.json();
+
+      if (response.ok) {
+        setReviews(json);
+      }
+    };
+    fetchReviews();
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -95,7 +109,39 @@ const UserDetails = () => {
           </div>
         </div>
       </div>
+      <div>
+        <div className="booking">
+          <h1>Reviews</h1>
+          <div className="booking_details">
+            <div class="customer__grid">
+              {Reviews && Reviews
+                .map(Review => (
+                  <div class="customer__card" key={Review._id}>
+                    <img src="assets/customer-1.jpg" alt="customer" />
+                    <p>
+                      {Review.comment}
+                    </p>
+                    <IoTrashBinSharp onClick={() => Reviewdelete(Review._id)}
+                      size={35}
+                      onMouseOver={({ target }) => (target.style.color = "black")}
+                      onMouseOut={({ target }) => (target.style.color = "purple")} />
+
+                    <Link to={`/Reviewupdate/${Review._id}`}>
+                      <FaUserEdit
+                        size={25}
+                        onMouseOver={({ target }) => (target.style.color = "black")}
+                        onMouseOut={({ target }) => (target.style.color = "purple")}
+                      />
+                    </Link>
+                  </div>
+
+                ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
   );
 };
 
