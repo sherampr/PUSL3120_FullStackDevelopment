@@ -13,6 +13,9 @@ import StaffNavbar from './staff/components/StaffNavbar';
 import AddMenu from './pages/menu';
 import { Menu } from '@mui/icons-material';
 import ViewMenu from './pages/view_menu';
+
+import TableReservationForm from './pages/book';
+import ReservationsList from './pages/ReservationsList';
 function App() {
   return (
     <div className="App">
@@ -37,9 +40,12 @@ function App() {
       
        <Route path="/menu" element={<ViewMenu/>} />
 
-       <Route path="/staff/updateroom/:id" element={<UpdateRoom/>} />
-       <Route path="/staff" element={<RoomList/>} />
+       <Route path="/reserve-table" element={<TableReservationForm/>} />
+       <Route path="/staff/viewbook" element={<ReservationsList/>} />
 
+       <Route path="/staff/updateroom/:id" element={<UpdateRoom/>} />
+       <Route path="/staff/currentrooms" element={<RoomList/>} />
+       <Route path="/staff" element={<RoomList/>} />
         <Route path="/booking-confirmation" element={<BookingConfirmation />} />
           </Routes>
         </div>

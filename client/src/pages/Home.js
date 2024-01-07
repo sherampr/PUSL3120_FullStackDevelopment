@@ -90,7 +90,7 @@ const Home = ()=>{
         <Link class="menu__btn" to={"/menu"}>
        View Restaurant Menu
         </Link>
-        <Link class="menu__btn" to={"/menu"}>
+        <Link class="menu__btn" to={"/reserve-table"}>
        Reserve table here
         </Link>
         </div>

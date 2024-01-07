@@ -8,6 +8,7 @@ const MenuItem = require('./models/MenuItem');
 const multer = require('multer');
 const path = require('path');
 const mongoose = require('mongoose');
+const Reservation = require('./models/Reservation');
 
 const app = express();
 
@@ -123,6 +124,66 @@ app.delete('/menu/:itemId', async (req, res) => {
         res.send({ message: 'Menu item deleted successfully' });
     } catch (error) {
         res.status(500).send({ message: 'Internal server error' });
+    }
+});
+
+
+app.post('/reserve-table', async (req, res) => {
+    const reservationData = req.body;
+
+    try {
+        const newReservation = new Reservation(reservationData);
+        await newReservation.save();
+        res.status(200).json({ message: 'Reservation saved', data: newReservation });
+    } catch (error) {
+        console.error('Error saving reservation:', error);
+        res.status(500).json({ message: 'Error saving reservation', error: error });
+    }
+});
+
+
+
+app.get('/reservations', async (req, res) => {
+    try {
+        const reservations = await Reservation.find(); // Fetch all reservations
+        res.status(200).json(reservations);
+    } catch (error) {
+        console.error('Error fetching reservations:', error);
+        res.status(500).json({ message: 'Error fetching reservations', error: error });
+    }
+});
+
+
+
+app.put('/reservation/:id', async (req, res) => {
+    const reservationId = req.params.id;
+    const updatedData = req.body;
+
+    try {
+        const updatedReservation = await Reservation.findByIdAndUpdate(reservationId, updatedData, { new: true });
+        if (!updatedReservation) {
+            return res.status(404).json({ message: 'Reservation not found' });
+        }
+        res.status(200).json({ message: 'Reservation updated', data: updatedReservation });
+    } catch (error) {
+        console.error('Error updating reservation:', error);
+        res.status(500).json({ message: 'Error updating reservation', error: error });
+    }
+});
+
+
+app.delete('/reservation/:id', async (req, res) => {
+    const reservationId = req.params.id;
+
+    try {
+        const deletedReservation = await Reservation.findByIdAndDelete(reservationId);
+        if (!deletedReservation) {
+            return res.status(404).json({ message: 'Reservation not found' });
+        }
+        res.status(200).json({ message: 'Reservation deleted' });
+    } catch (error) {
+        console.error('Error deleting reservation:', error);
+        res.status(500).json({ message: 'Error deleting reservation', error: error });
     }
 });
 

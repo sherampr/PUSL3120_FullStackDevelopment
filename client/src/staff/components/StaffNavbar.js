@@ -15,11 +15,19 @@ const StaffNavbar = ()=>{
                     <h5>New Room</h5>
                 </Link>
 
-                
-
-                <Link className="link" to="/">
-                    <h5>Services</h5>
+                <Link className="link" to="/staff/currentrooms">
+                    <h5>Current Rooms</h5>
                 </Link>
+
+
+                <Link className="link" to="/staff/viewbook">
+                    <h5>Reserved Tables</h5>
+                </Link>
+
+                <Link className="link" to="/staff/menu">
+                    <h5>Manage Restaurant Menu</h5>
+                </Link>
+
                 <Link className="link" to="/login">
                     <h5>Login</h5>
                 </Link>
