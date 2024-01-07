@@ -10,6 +10,9 @@ import UpdateRoom from './staff/pages/UpdateRoom';
 // import { BookingProvider } from './contexts/BookingContext';
 import BookingConfirmation  from './pages/BookingConfirmation';
 import StaffNavbar from './staff/components/StaffNavbar';
+import AddMenu from './pages/menu';
+import { Menu } from '@mui/icons-material';
+import ViewMenu from './pages/view_menu';
 function App() {
   return (
     <div className="App">
@@ -29,6 +32,10 @@ function App() {
        <Route path="/room-details/:id" element={<RoomDetails/>} />
 
        <Route path="/staff/newroom" element={<NewRoom/>} />
+
+       <Route path="/staff/menu" element={<AddMenu/>} />
+      
+       <Route path="/menu" element={<ViewMenu/>} />
 
        <Route path="/staff/updateroom/:id" element={<UpdateRoom/>} />
        <Route path="/staff" element={<RoomList/>} />

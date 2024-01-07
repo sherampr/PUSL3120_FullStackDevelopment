@@ -87,8 +87,12 @@ const Home = ()=>{
         <p>Felicon Restaurant </p>
         <h4>Enjoy srilanka's best food with top notch service from our staff</h4>
         <div class="menu__buttons">
-        <button class="menu__btn">View Restaurant Menu</button>
-        <button class="menu__btn">Reserve a table here</button>
+        <Link class="menu__btn" to={"/menu"}>
+       View Restaurant Menu
+        </Link>
+        <Link class="menu__btn" to={"/menu"}>
+       Reserve table here
+        </Link>
         </div>
       </div>
     </section>
