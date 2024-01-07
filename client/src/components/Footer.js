@@ -7,37 +7,38 @@ const Navbar = ()=>{
         <div class="footer__col">
           <h3>Felicon</h3>
           <p>
-           Felicopn offers a seamless and
-            convenient way to find and book accommodations worldwide.
+           Felicon Hotel Website 
           </p>
           <p>
-            Felicon aims to provide a stress-free experience for travelers
-            seeking the perfect stay.
+            Felicon Hotel Website is developed for the Full Stack Development Coursework
           </p>
         </div>
         <div class="footer__col">
-          <h4>Company</h4>
-          <p>About Us</p>
-          <p>Our Team</p>
-          <p>Blog</p>
-          <p>Book</p>
-          <p>Contact Us</p>
+          <h4>PUSL3120</h4>
+          <p>Group Coursework</p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
         </div>
         <div class="footer__col">
-          <h4>Legal</h4>
-          <p>FAQs</p>
-          <p>Terms & Conditions</p>
-          <p>Privacy Policy</p>
+          <h4>PUSL3120</h4>
+          <p>Group43</p>
+          <p></p>
+          <p></p>
         </div>
         <div class="footer__col">
-          <h4>Resources</h4>
-          <p>Social Media</p>
-          <p>Help Center</p>
-          <p>Partnerships</p>
+          <h4>Group Members</h4>
+          <p>Sheram Prasan</p>
+          <p>Sasun Nethmina</p>
+          <p>Chenuka Kuruppu</p>
+          <p>Methsan Wickramarathne</p>
+          <p>Akeel</p>
+          <p>Sachi</p>
         </div>
       </div>
       <div class="footer__bar">
-        Copyright © 2023 Web Design Mastery. All rights reserved.
+        Copyright © 2024 Group 43 PUSL3120
       </div>
     </footer>
     )

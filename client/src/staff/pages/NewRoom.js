@@ -64,7 +64,7 @@ const NewRoom = () => {
           
         <div className="container">
           <h1>Add a Room Type</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} data-testid="form">
             <div className="row">
               <div>
                 <label htmlFor="typeName">Room Type Name</label>

@@ -83,10 +83,13 @@ const Home = ()=>{
 
 
     <section class="section__container">
-      <div class="reward__container">
+      <div class="menu__container">
         <p>Felicon Restaurant </p>
         <h4>Enjoy srilanka's best food with top notch service from our staff</h4>
-        <button class="reward__btn">View Menu or Reserve a table here</button>
+        <div class="menu__buttons">
+        <button class="menu__btn">View Restaurant Menu</button>
+        <button class="menu__btn">Reserve a table here</button>
+        </div>
       </div>
     </section>
 

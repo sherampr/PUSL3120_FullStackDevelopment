@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useParams, useNavigate} from "react-router-dom"
 import { useEffect, useState } from "react"
 import '../styles/RoomDetails.css'
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 
 const CustomInput = forwardRef(({ value, onClick, isDisabled }, ref) => (
@@ -40,24 +40,24 @@ const handleCheckOutDateChange = (date) => {
 const [checkOutDate, setCheckOutDate] = useState(null);
 
     useEffect(() => {
-       const socket = io('http://localhost:3001', { transports: ['websocket'] });
+    //    const socket = io('http://localhost:3001', { transports: ['websocket'] });
 
-      socket.on('connect', () => {
-          console.log('Connected to WebSocket server');
-      });
-      socket.on('connect_error', (error) => {
-        console.error('Connection Error:', error);
-    });
+    //   socket.on('connect', () => {
+    //       console.log('Connected to WebSocket server');
+    //   });
+    //   socket.on('connect_error', (error) => {
+    //     console.error('Connection Error:', error);
+    // });
     
-    socket.on('roomAvailabilityUpdate', (data) => {
-      console.log('Room availability update received:', data);
-        if (data.roomId === id) { // Check if the update is for the current room
-            setroomTypes(prevState => ({
-                ...prevState,
-                roomAvailability: data.newAvailability,
-            }));
-        }
-    });
+    // socket.on('roomAvailabilityUpdate', (data) => {
+    //   console.log('Room availability update received:', data);
+    //     if (data.roomId === id) { // Check if the update is for the current room
+    //         setroomTypes(prevState => ({
+    //             ...prevState,
+    //             roomAvailability: data.newAvailability,
+    //         }));
+    //     }
+    // });
 
 
 
@@ -71,10 +71,10 @@ const [checkOutDate, setCheckOutDate] = useState(null);
         }
         fetchroomTypes()
 
-        return () => {
-          socket.off('roomAvailabilityUpdate');
-          // socket.disconnect();
-      };
+      //   return () => {
+      //     socket.off('roomAvailabilityUpdate');
+      //     // socket.disconnect();
+      // };
   }, [id]);
 
     if (!roomTypes) {
