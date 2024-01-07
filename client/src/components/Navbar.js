@@ -50,9 +50,11 @@ const Navbar = () => {
         <Link className="link" to="/menu">
           <h5>Restaurant Menu</h5>
         </Link>
-        <Link className="link" to="/reserve-table">
-          <h5>Restaurant Table Reservation</h5>
-        </Link>
+        {isLoggedIn && (
+          <Link className="link" to="/reserve-table">
+            <h5>Restaurant Table Reservation</h5>
+          </Link>
+        )}
       </div>
       <div className="nav__log_link">
         {!isLoggedIn ? (

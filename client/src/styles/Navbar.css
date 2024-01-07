@@ -13,6 +13,7 @@ a {
   
   header {
     max-width: var(--max-width);
+    position: relative;
     margin: auto;
     padding: 2rem 1rem;
     display: flex;
@@ -60,7 +61,22 @@ a {
     justify-content: center; 
 
 }
+.logout-s button {
+  background-color: rgb(201, 7, 7);
+  position: absolute;
+  top: 35px; 
+  width: 7%;
+  right: 20px;
+  color: white;
+  align-items: end;
+  padding: 10px 20px;
+  cursor: pointer;
+}
 
+.logout-s button:hover {
+  background-color: red;
+  color: white;
+}
 
 
 

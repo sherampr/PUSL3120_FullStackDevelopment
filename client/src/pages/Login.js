@@ -16,7 +16,12 @@ const LoginPage = () => {
       const url = "/api/auth";
       const { data: res } = await axios.post(url, data);
       localStorage.setItem("token", res.data);
-      window.location = "/";
+      localStorage.setItem("isAdmin", res.isAdmin);
+      if (res.isAdmin) {
+        window.location = "/staff"; // Redirect to staff page
+      } else {
+        window.location = "/"; // Redirect to home page
+      }
     } catch (error) {
       if (
         error.response &&

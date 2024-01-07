@@ -18,12 +18,12 @@ import Users from "./pages/Users";
 import BookingList from "./pages/BookingList";
 
 // App component
-import AddMenu from './pages/menu';
-import { Menu } from '@mui/icons-material';
-import ViewMenu from './pages/view_menu';
+import AddMenu from "./pages/menu";
+import { Menu } from "@mui/icons-material";
+import ViewMenu from "./pages/view_menu";
 
-import TableReservationForm from './pages/book';
-import ReservationsList from './pages/ReservationsList';
+import TableReservationForm from "./pages/book";
+import ReservationsList from "./pages/ReservationsList";
 function App() {
   return (
     <div className="App">
@@ -35,17 +35,17 @@ function App() {
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/room-details/:id" element={<RoomDetails />} />
 
-       <Route path="/staff/newroom" element={<NewRoom/>} />
+            <Route path="/staff/newroom" element={<NewRoom />} />
 
-       <Route path="/staff/menu" element={<AddMenu/>} />
-      
-       <Route path="/menu" element={<ViewMenu/>} />
+            <Route path="/staff/menu" element={<AddMenu />} />
 
-       <Route path="/reserve-table" element={<TableReservationForm/>} />
-       <Route path="/staff/viewbook" element={<ReservationsList/>} />
+            <Route path="/menu" element={<ViewMenu />} />
+
+            <Route path="/reserve-table" element={<TableReservationForm />} />
+            <Route path="/staff/viewbook" element={<ReservationsList />} />
 
             <Route path="/staff/updateroom/:id" element={<UpdateRoom />} />
-       <Route path="/staff/currentrooms" element={<RoomList/>} />
+            <Route path="/staff/currentrooms" element={<RoomList />} />
             <Route path="/staff" element={<RoomList />} />
             <Route path="/booking-confirmation" element={<BookingForm />} />
 
@@ -56,7 +56,6 @@ function App() {
             <Route path="/Users" element={<Users />} />
 
             <Route path="/staff/bookinglist" element={<BookingList />} />
-
           </Routes>
         </div>
 
@@ -69,10 +68,9 @@ function App() {
 function NavbarSwitcher() {
   const location = useLocation();
 
-  // Check if the current path is one of the staff paths
-  const isStaffPage = location.pathname.includes("/staff"); // Modify this as per your route structure
+  const isStaffPage = location.pathname.includes("/staff");
 
-  // Return the appropriate navbar
+  // Return to the appropriate navbar
   return isStaffPage ? <StaffNavbar /> : <Navbar />;
 }
 

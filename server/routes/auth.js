@@ -3,35 +3,7 @@ const { User } = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 
-const logout = () => {
-  localStorage.removeItem("token");
-  window.location = "/";
-};
-
-router.post("/", async (req, res) => {
-  try {
-    const { error } = validate(req.body);
-    if (error)
-      return res.status(400).send({ message: error.details[0].message });
-
-    const user = await User.findOne({ email: req.body.email });
-    if (!user)
-      return res.status(401).send({ message: "Invalid Email or Password" });
-
-    const validPassword = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-    if (!validPassword)
-      return res.status(401).send({ message: "Invalid Email or Password" });
-
-    const token = user.generateAuthToken();
-    res.status(200).send({ data: token, message: "logged in successfully" });
-  } catch (error) {
-    res.status(500).send({ message: "Internal Server Error" });
-  }
-});
-
+// Function to validate user login data
 const validate = (data) => {
   const schema = Joi.object({
     email: Joi.string().email().required().label("Email"),
@@ -39,5 +11,42 @@ const validate = (data) => {
   });
   return schema.validate(data);
 };
-module.exports.logout = logout;
+
+// POST route for user authentication
+router.post("/", async (req, res) => {
+  try {
+    // Validate the request body first
+    const { error } = validate(req.body);
+    if (error) {
+      return res.status(400).send({ message: error.details[0].message });
+    }
+
+    // Check if user exists
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(401).send({ message: "Invalid Email or Password" });
+    }
+
+    // Check if password is correct
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!validPassword) {
+      return res.status(401).send({ message: "Invalid Email or Password" });
+    }
+
+    // Generate a token
+    const token = user.generateAuthToken();
+    const isAdmin = user.admin === true; // Checking if the user has an admin.
+
+    // Send response
+    res
+      .status(200)
+      .send({ data: token, isAdmin, message: "Logged in successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
