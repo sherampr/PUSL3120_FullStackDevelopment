@@ -24,6 +24,10 @@ const StaffNavbar = ()=>{
                     <h5>Reserved Tables</h5>
                 </Link>
 
+                <Link className="link" to="/staff/bookinglist">
+                    <h5>Booking</h5>
+                </Link>
+
                 <Link className="link" to="/staff/menu">
                     <h5>Manage Restaurant Menu</h5>
                 </Link>

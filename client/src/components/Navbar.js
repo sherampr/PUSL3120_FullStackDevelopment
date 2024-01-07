@@ -47,11 +47,11 @@ const Navbar = () => {
         <Link className="link" to="/rooms">
           <h5>Rooms</h5>
         </Link>
-        <Link className="link" to="/">
-          <h5>Services</h5>
+        <Link className="link" to="/menu">
+          <h5>Restaurant Menu</h5>
         </Link>
-        <Link className="link" to="/list">
-          <h5>booking list</h5>
+        <Link className="link" to="/reserve-table">
+          <h5>Restaurant Table Reservation</h5>
         </Link>
       </div>
       <div className="nav__log_link">
