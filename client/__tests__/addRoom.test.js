@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom'; // Updated import
 import userEvent from '@testing-library/user-event';
 import axios from 'axios';
-import NewRoom from '../src/staff/pages/NewRoom'; // Adjust the import path as necessary
+import NewRoom from '../src/staff/pages/NewRoom';
 
 jest.mock('axios');
 
