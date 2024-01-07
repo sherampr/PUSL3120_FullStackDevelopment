@@ -15,6 +15,7 @@ import Signup from "./pages/Signup";
 import UserDetails from "./pages/UserDetails";
 import Userupdate from "./pages/UserUpdate";
 import Users from "./pages/Users";
+import BookingList from "./pages/BookingList";
 
 // App component
 function App() {
@@ -40,6 +41,9 @@ function App() {
             <Route path="/UserDetails" element={<UserDetails />} />
             <Route path="/Userupdate" element={<Userupdate />} />
             <Route path="/Users" element={<Users />} />
+
+            <Route path="/list" element={<BookingList />} />
+
           </Routes>
         </div>
 

@@ -50,6 +50,9 @@ const Navbar = () => {
         <Link className="link" to="/">
           <h5>Services</h5>
         </Link>
+        <Link className="link" to="/list">
+          <h5>booking list</h5>
+        </Link>
       </div>
       <div className="nav__log_link">
         {!isLoggedIn ? (
