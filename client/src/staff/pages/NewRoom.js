@@ -9,6 +9,7 @@ const NewRoom = () => {
     amenities: '',
     typeDescription: '',
     roomCapacity: '',
+    displayInHome: false, 
     typeImages: []
   });
 
@@ -22,20 +23,22 @@ const NewRoom = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const { typeName, typePrice, amenities, typeDescription, roomCapacity, typeImages } = roomType;
-
+  
     const newRoomType = {
       typeName,
       typePrice,
       amenities: amenities.split(','),
       typeDescription,
       roomCapacity,
+      displayInHome: false,
       imageUrls: typeImages.map((url, index) => ({ url, isMain: index === 0 }))
     };
-
+  
     try {
-      await axios.post('/api/roomtypes', newRoomType);
+      const response = await axios.post('/api/roomtypes', newRoomType);
+      console.log('API Response:', response);  // Console log the API response
       alert('Room Type Added Successfully');
       setRoomType({
         typeName: '',
@@ -43,7 +46,8 @@ const NewRoom = () => {
         amenities: '',
         typeDescription: '',
         roomCapacity: '',
-        typeImages: []
+        typeImages: [],
+        
       });
     } catch (err) {
       console.error(err);

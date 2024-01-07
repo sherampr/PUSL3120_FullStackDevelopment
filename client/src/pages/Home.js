@@ -57,21 +57,21 @@ const Home = ()=>{
         <h2 class="section__header">What our Guests say</h2>
         <div class="customer__grid">
           <div class="customer__card">
-            <img src="assets/customer-1.jpg" alt="customer" />
+            <img alt="customer" />
             <p>
               The booking process was seamless, and the confirmation was
               instant.
             </p>
           </div>
           <div class="customer__card">
-            <img src="assets/customer-2.jpg" alt="customer" />
+            <img alt="customer" />
             <p>
               The website provided detailed information about hotel, including
               amenities, photos, which helped me make an informed decision.
             </p>
           </div>
           <div class="customer__card">
-            <img src="assets/customer-3.jpg" alt="customer" />
+            <img alt="customer" />
             <p>
               I was able to book a room within minutes, and the hotel exceeded
               my expectations. 

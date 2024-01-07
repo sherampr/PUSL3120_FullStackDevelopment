@@ -56,12 +56,13 @@ function RoomList() {
                     <div className="col col-3">Room Capacity</div>
                     <div className="col col-4">Actions</div>
                 </li>
+                
                 {roomTypes.map(roomType => (
- <Link to={`/room-details/${roomType._id}`}>
+ 
                     <li key={roomType._id} className="table-row">
-                        
+                        <Link to={`/room-details/${roomType._id}`}>
                         <div className="col col-1" data-label="Type Name">{roomType.typeName}</div>
-                       
+                        </Link>
                         <div className="col col-2" data-label="Type Price">{roomType.typePrice}</div>
                         <div className="col col-3" data-label="Room Capacity">{roomType.roomCapacity}</div>
                         <div className="col col-4" data-label="Actions">
@@ -71,7 +72,7 @@ function RoomList() {
                             <button className="deleteBtn" onClick={() => handleDelete(roomType._id)}>Delete</button>
                         </div>
                     </li>
-                    </Link>
+                   
                 ))}
             </ul>
         </div>
