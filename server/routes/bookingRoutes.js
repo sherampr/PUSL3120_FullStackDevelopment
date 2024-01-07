@@ -6,14 +6,28 @@ const Booking = require('../models/booking');
 // POST /api/bookings
 router.post('/', async (req, res) => {
   try {
-    const { firstName, lastName, checkinDate, checkoutDate,guestNumber  } = req.body;
+    const { 
+      firstName, 
+      lastName, 
+      email,         // Add the email field
+      checkinDate, 
+      checkoutDate, 
+      guestNumber, 
+      roomType, 
+      price 
+    } = req.body;
+
     const newBooking = new Booking({
       firstName,
       lastName,
+      email,         // Include the email field when creating the booking
       checkinDate,
       checkoutDate,
-      guestNumber
+      guestNumber,
+      roomType, 
+      price 
     });
+
     await newBooking.save();
     res.status(201).json({ message: 'Booking saved successfully' });
   } catch (error) {
@@ -22,17 +36,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-
-//getbookings
-router.get('/', async (req, res) => {
-  try {
-    const bookings = await Booking.find();
-    res.json(bookings);
-  } catch (error) {
-    console.error('Error fetching bookings:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
+// ... other routes ...
 
 module.exports = router;

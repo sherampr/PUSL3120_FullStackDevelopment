@@ -9,7 +9,7 @@ const registerRoutes = require("./routes/register");
 const authRoutes = require("./routes/auth");
 const userDetailRoutes = require("./routes/userDetails");
 const userDataRoutes = require("./routes/Data");
-
+const bookingRoutes = require('./routes/bookingRoutes');
 const app = express();
 //middleware
 app.use(express.json());
@@ -26,6 +26,7 @@ app.use("/api/roomtypes", roomTypeRoutes);
 app.use("/api/users", registerRoutes);
 app.use("/api/users", userDetailRoutes);
 app.use("/api/users", userDataRoutes);
+app.use('/api/bookings', bookingRoutes);
 //DB connection
 if (require.main === module) {
     mongoose.connect(process.env.MONG_URI)
