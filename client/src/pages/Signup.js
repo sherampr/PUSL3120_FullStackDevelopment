@@ -23,35 +23,19 @@ const SignupPage = () => {
 
   const validate = () => {
     const errors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    const passwordUpperCase = /[A-Z]/;
-    const passwordLower = /[a-z]/;
-    const passwordNumber = /[0-9]/;
-    const passwordSymbol = /[!@#$%^&*]/;
+    const emailRegex = /^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,}$/i;
     const phoneRegex = /^[0-9]{10}$/;
 
     if (!data.firstName) errors.firstName = "First name cannot be empty";
     if (!data.lastName) errors.lastName = "Last name cannot be empty";
     if (!data.email || !emailRegex.test(data.email))
-      errors.email = "Invalid email";
+      errors.email = "Email should be lowercase and valid";
     if (!data.password) errors.password = "Password cannot be empty";
-    else {
-      if (data.password.length < 8)
-        errors.password = "Password must be at least 8 characters";
-      if (!passwordUpperCase.test(data.password))
-        errors.passwordUpperCase = "Password must include an uppercase letter";
-      if (!passwordLower.test(data.password))
-        errors.passwordLower = "Password must include a lowercase letter";
-      if (!passwordNumber.test(data.password))
-        errors.passwordNumber = "Password must include a number";
-      if (!passwordSymbol.test(data.password))
-        errors.passwordSymbol = "Password must include a symbol";
-    }
     if (data.password !== data.confirmPassword)
       errors.confirmPassword = "Passwords do not match";
     if (!data.phone) errors.phone = "Phone number cannot be empty";
     else if (!phoneRegex.test(data.phone))
-      errors.phone = "Phone number must be 10 digits";
+      errors.phone = "Phone number must be numeric and 10 digits";
 
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
