@@ -81,7 +81,14 @@ const [checkOutDate, setCheckOutDate] = useState(null);
         return <div>Loading...</div>
     }
     const handleBooking = () => {
-      navigate('/booking-confirmation', { state: { checkInDate, checkOutDate } });
+      navigate('/booking-confirmation', {
+        state: {
+            checkInDate,
+            checkOutDate,
+            roomType: roomTypes.typeName,
+            price: roomTypes.typePrice
+        }
+    });
   };
 
   //Disable date pickers if room capacity is 0

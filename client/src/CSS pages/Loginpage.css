@@ -18,7 +18,7 @@
     margin-bottom: 20px;
   }
   .login-form h4 {
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     text-align: left;
   }
   
@@ -34,6 +34,7 @@
   
   .login-form button {
     width: calc(100% - 150px);
+    align-self: center;
     padding: 10px;
     border: none;
     border-radius: 3px;
@@ -58,4 +59,12 @@
   .login-form a:hover {
     text-decoration: underline;
   }
-  
+  .error_msg::before {
+    content: ''; 
+    display: inline-block;
+    width: 20px; 
+    height: 20px; 
+    background: url('https://simg.nicepng.com/png/small/22-229128_warning-attention-road-sign-exclamation-mark-warning-icon.png') no-repeat center center;
+    background-size: contain;
+    margin-right: 10px;
+  }

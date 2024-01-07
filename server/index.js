@@ -1,8 +1,12 @@
-require('dotenv').config();
+require("dotenv").config();;
 
 const express = require('express');
 const roomRoutes = require('./routes/rooms');
 const roomTypeRoutes = require('./routes/roomTypes');
+const registerRoutes = require("./routes/register");
+const authRoutes = require("./routes/auth");
+const userDetailRoutes = require("./routes/userDetails");
+const userDataRoutes = require("./routes/Data");
 const cors = require('cors');
 const MenuItem = require('./models/MenuItem');
 const multer = require('multer');
@@ -44,10 +48,13 @@ app.use(cors({
 }));
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 //routes
-app.use('/api/rooms', roomRoutes)
-
-app.use('/api/roomtypes', roomTypeRoutes)
-
+// app.use("/api/rooms", roomRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/roomtypes", roomTypeRoutes);
+app.use("/api/users", registerRoutes);
+app.use("/api/users", userDetailRoutes);
+app.use("/api/users", userDataRoutes);
+app.use('/api/bookings', bookingRoutes);
 //DB connection
 if (require.main === module) {
     mongoose.connect(process.env.MONG_URI)
