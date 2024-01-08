@@ -17,6 +17,7 @@ import Userupdate from "./pages/UserUpdate";
 import Users from "./pages/Users";
 import ReviewUpdate from "./pages/ReviewUpdate";
 import BookingList from "./pages/BookingList";
+import UpdateBooking from "./pages/updateBooking";
 
 // App component
 import AddMenu from "./pages/menu";
@@ -56,7 +57,13 @@ function App() {
             <Route path="/Userupdate" element={<Userupdate />} />
             <Route path="/Users" element={<Users />} />
             <Route path="/ReviewUpdate/:id" element={<ReviewUpdate />} />
-            <Route path="/staff/bookinglist" element={<BookingList />} />
+
+            <Route path="/list" element={<BookingList />} />
+
+            <Route
+              path="/updateBooking/:bookingId"
+              element={<UpdateBooking />}
+            />
           </Routes>
         </div>
 

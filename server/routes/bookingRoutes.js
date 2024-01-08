@@ -1,4 +1,4 @@
-// routes/bookingRoutes.js
+// bookingRoutes.js
 const express = require('express');
 const router = express.Router();
 const Booking = require('../models/booking');
@@ -54,10 +54,23 @@ io.emit('roomAvailabilityUpdate', { roomId: roomType, newAvailability: roomTypeD
   }
 });
 
-// GET /api/bookings (Get all bookings)
 router.get('/', async (req, res) => {
   try {
+    // Fetch all bookings from the database or data source
     const bookings = await Booking.find();
+    res.json(bookings);
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// GET /api/bookings/user?email=:email (Get bookings for a specific user)
+router.get('/user', async (req, res) => {
+  try {
+    const userEmail = req.query.email;
+    const bookings = await Booking.find({ email: userEmail });
+
     res.status(200).json(bookings);
   } catch (error) {
     console.error(error);
@@ -105,6 +118,28 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// ... other routes ...
+
+// bookingRoutes.js
+
+// ... (existing code)
+
+// DELETE /api/bookings/:id (Cancel a booking by ID)
+router.delete('/:id', async (req, res) => {
+  try {
+    const bookingId = req.params.id;
+
+    const deletedBooking = await Booking.findByIdAndDelete(bookingId);
+
+    if (!deletedBooking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json({ message: 'Booking cancelled successfully', booking: deletedBooking });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 module.exports = router;

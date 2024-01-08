@@ -2,8 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "../styles/form.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function BookingForm() {
   const location = useLocation();
@@ -38,15 +37,20 @@ function BookingForm() {
     fetchUserDetails();
   }, [formData]);
 
-  const handleChange = useCallback(
-    (e) => {
-      setFormData((prevData) => ({
-        ...prevData,
-        [e.target.name]: e.target.value,
-      }));
-    },
-    []
-  );
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    console.log(`Changing ${name} to ${value}`);
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]:
+        name === "guestNumber"
+          ? isNaN(value)
+            ? ""
+            : parseInt(value, 10)
+          : value,
+    }));
+  }, []);
 
   const validateForm = () => {
     const { firstName, lastName, email, guestNumber } = formData;
@@ -73,6 +77,7 @@ function BookingForm() {
     try {
       await axios.post("/api/bookings", bookingData);
       console.log("Booking submitted successfully");
+      alert("Booking submitted successfully");
       resetForm();
       navigate("/");
     } catch (error) {
@@ -145,14 +150,14 @@ function BookingForm() {
         </div>
 
         <div className="form-group">
-        <label>Select Number of Guests</label>
-        <input
-          type="number"
-          name="guestNumber"
-          value={formData.guestNumber}
-          onChange={handleChange}
-        />
-      </div>
+          <label>Select Number of Guests</label>
+          <input
+            type="number"
+            name="guestNumber"
+            value={formData.guestNumber}
+            onChange={handleChange}
+          />
+        </div>
 
         <div className="form-group">
           <label>Price</label>
