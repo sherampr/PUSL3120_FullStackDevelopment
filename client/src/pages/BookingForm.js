@@ -37,9 +37,16 @@ function BookingForm() {
     }, [formData]);
 
     const handleChange = useCallback((e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    }, [formData]);
-
+        const { name, value } = e.target;
+        console.log(`Changing ${name} to ${value}`);
+    
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: name === 'guestNumber' ? (isNaN(value) ? '' : parseInt(value, 10)) : value,
+        }));
+    }, []);
+    
+    
     const validateForm = () => {
         const { firstName, lastName, email, guestNumber } = formData;
         if (!firstName || !lastName || !guestNumber || !email) {
@@ -65,6 +72,7 @@ function BookingForm() {
         try {
             await axios.post('/api/bookings', bookingData);
             console.log('Booking submitted successfully');
+            alert("Booking submitted sucessfully");
             resetForm();
         } catch (error) {
             console.error('Failed to submit booking', error);

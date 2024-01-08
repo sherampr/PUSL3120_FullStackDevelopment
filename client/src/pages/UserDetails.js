@@ -1,3 +1,4 @@
+// userDetails.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -6,15 +7,19 @@ import "../styles/UserDetails.css";
 import { IoTrashBinSharp } from "react-icons/io5";
 import { FaUserEdit } from "react-icons/fa";
 
+
 const UserDetails = () => {
   const [data, setData] = useState({});
+  const [bookingData, setBookingData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (!token) {
       navigate("/login");
     } else {
+      // Fetch user details
       axios
         .get("/api/users", {
           headers: {
@@ -23,7 +28,23 @@ const UserDetails = () => {
           },
         })
         .then((res) => {
+          const userEmail = res.data.email;
           setData(res.data);
+
+          // Fetch booking details for the specific user based on email
+          axios
+            .get(`/api/bookings/user?email=${userEmail}`, {
+              headers: {
+                "Content-Type": "application/json",
+                "x-auth-token": token,
+              },
+            })
+            .then((bookingRes) => {
+              setBookingData(bookingRes.data);
+            })
+            .catch((bookingErr) => {
+              console.log("Error fetching booking details:", bookingErr);
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -54,6 +75,21 @@ const UserDetails = () => {
     }
   };
 
+
+  const handleCancelBooking = async (bookingId) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`/api/bookings/${bookingId}`, {
+        headers: { "x-auth-token": token },
+      });
+      // Refresh the bookingData after cancellation
+      const updatedBookingData = bookingData.filter(booking => booking._id !== bookingId);
+      setBookingData(updatedBookingData);
+    } catch (error) {
+      console.error("Error cancelling booking:", error);
+    }
+  };
+
   return (
     <div>
       <div className="hello">
@@ -74,25 +110,31 @@ const UserDetails = () => {
           </Link>
         </div>
         <p>
-          userName: {data.firstName} {data.lastName}
+          UserName: {data.firstName} {data.lastName}
         </p>
         <p>Email: {data.email}</p>
-        <p>phone number: {data.phone}</p>
+        <p>Phone number: {data.phone}</p>
         <div className="delete">
           <button onClick={handleDeleteAccount}>Delete Account</button>
         </div>
       </div>
       <div className="booking">
-        <h1>Booking details</h1>
+        
         <div className="booking_details">
-          <label>Room type</label>
-          <label>Check-in date</label>
-          <label>Check-out date</label>
-          <label>Room price</label>
-          <div className="delete_booking">
-            <IoTrashBinSharp size={35} />
-            <h5>created date</h5>
-          </div>
+          
+          {bookingData.map((booking) => (
+            
+            <div key={booking._id} className="booking_row">
+              <h2>Your booking details</h2>
+              <p>{`Full name: ${booking.firstName} ${booking.lastName}`}</p>
+              <p>{`Room type: ${booking.roomType}`}</p>
+              <p>{`Check-in date: ${new Date(booking.checkinDate).toLocaleDateString()}`}</p>
+              <p>{`Check-out date: ${new Date(booking.checkoutDate).toLocaleDateString()}`}</p>
+              <p>{`Room price: LKR${booking.price}`}</p>
+              <button onClick={() => handleCancelBooking(booking._id)}>Cancel Booking</button>
+              <Link to={`/updateBooking/${booking._id}`}>Update booking dates</Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>
