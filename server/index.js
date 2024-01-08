@@ -10,6 +10,7 @@ const authRoutes = require("./routes/auth");
 const userDetailRoutes = require("./routes/userDetails");
 const userDataRoutes = require("./routes/Data");
 const reviews = require("./routes/review");
+const rusers = require("./routes/rusers");
 
 const app = express();
 //middleware
@@ -28,6 +29,7 @@ app.use("/api/users", registerRoutes);
 app.use("/api/users", userDetailRoutes);
 app.use("/api/users", userDataRoutes);
 app.use("/api/reviews", reviews);
+app.use("/api/rusers", rusers);
 //DB connection
 if (require.main === module) {
     mongoose.connect(process.env.MONG_URI)

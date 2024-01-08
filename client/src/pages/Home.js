@@ -17,10 +17,26 @@ const Home = () => {
     fetchRoomTypes();
   }, []);
 
+  const [Users, setUsers] = useState(null)
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+
+      const response = await fetch('/api/rusers');
+      const json = await response.json();
+
+      if (response.ok) {
+        setUsers(json);
+      }
+    };
+    fetchUsers();
+  }, []);
+
   const [Reviews, setReviews] = useState(null)
 
   useEffect(() => {
     const fetchReviews = async () => {
+
       const response = await fetch('/api/reviews');
       const json = await response.json();
 
@@ -70,7 +86,7 @@ const Home = () => {
             {Reviews && Reviews
               .map(Review => (
                 <div class="customer__card" key={Review._id}>
-                  <img src="assets/customer-1.jpg" alt="customer" />
+                  <img src="assets/customer-1.jpg" alt={Review.firstName} />
                   <p>
                     {Review.comment}
                   </p>

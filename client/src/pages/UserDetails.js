@@ -127,6 +127,7 @@ const UserDetails = () => {
           <div className="booking_details">
             <div class="customer__grid">
               {Reviews && Reviews
+                .filter(Review => Review.user === data._id)
                 .map(Review => (
                   <div class="customer__card" key={Review._id}>
                     <img src="assets/customer-1.jpg" alt="customer" />
