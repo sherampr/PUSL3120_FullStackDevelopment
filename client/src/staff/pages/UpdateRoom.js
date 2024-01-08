@@ -14,6 +14,8 @@ const UpdateRoom = ({ match }) => {
     amenities: '',
     typeDescription: '',
     roomCapacity: '',
+    roomAvailability: '',
+
     typeImages: []
   });
 
@@ -35,6 +37,7 @@ const UpdateRoom = ({ match }) => {
           amenities: data.amenities.join(','),
           typeDescription: data.typeDescription,
           roomCapacity: data.roomCapacity,
+          roomAvailability:data.roomAvailability,
           typeImages: data.typeImages.map(img => img.url).join(',')
         });
       } catch (err) {
@@ -53,14 +56,15 @@ const UpdateRoom = ({ match }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const { typeName, typePrice, amenities, typeDescription, roomCapacity, typeImages } = roomType;
+    const { typeName, typePrice, amenities, typeDescription, roomCapacity,roomAvailability, typeImages } = roomType;
   
     const updatedRoomType = {
       typeName,
       typePrice,
       amenities: amenities.split(',').map(item => item.trim()), // split and trim amenities
       typeDescription,
-      roomCapacity: parseInt(roomCapacity, 10), // ensure roomCapacity is a number
+      roomCapacity: parseInt(roomCapacity, 10),
+      roomAvailability:parseInt(roomAvailability, 10), // ensure roomCapacity is a number
       imageUrls: typeImages.split(',').map(url => ({ url, isMain: false })) // map each URL to an object
     };
   
@@ -134,6 +138,17 @@ const UpdateRoom = ({ match }) => {
               id="roomCapacity"
               name="roomCapacity"
               value={roomType.roomCapacity}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="roomCapacity">Room Availability</label>
+            <textarea
+              type="number"
+              id="roomAvailability"
+              name="roomAvailability"
+              value={roomType.roomAvailability}
               onChange={handleChange}
               required
             />
