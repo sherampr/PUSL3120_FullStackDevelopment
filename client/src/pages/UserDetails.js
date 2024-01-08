@@ -8,11 +8,11 @@ import { FaUserEdit, FaUserAlt } from "react-icons/fa";
 const UserDetails = () => {
   const [data, setData] = useState({});
   const [bookingData, setBookingData] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
     if (!token) {
       navigate("/login");
     } else {
@@ -40,6 +40,8 @@ const UserDetails = () => {
             .catch((bookingErr) => {
               console.log("Error fetching booking details:", bookingErr);
             });
+
+          fetchReviews(userEmail, token);
         })
         .catch((err) => {
           console.log(err);
@@ -50,20 +52,19 @@ const UserDetails = () => {
     }
   }, [navigate]);
 
-  const [Reviews, setReviews] = useState(null);
-
-  useEffect(() => {
-    const fetchReviews = async () => {
-      const response = await fetch("/api/reviews");
-      const json = await response.json();
-
-      if (response.ok) {
-        setReviews(json);
-      }
-    };
-
-    fetchReviews();
-  }, []);
+  const fetchReviews = async (email, token) => {
+    try {
+      const response = await axios.get("/api/reviews", {
+        headers: { "x-auth-token": token },
+      });
+      const userReviews = response.data.filter(
+        (review) => review.customerEmail === email
+      );
+      setReviews(userReviews);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -141,10 +142,10 @@ const UserDetails = () => {
         </div>
       </div>
       <div className="booking">
+        <h2>Your Booking Details</h2>
         <div className="booking_details">
           {bookingData.map((booking) => (
             <div key={booking._id} className="booking_row">
-              <h2>Your booking details</h2>
               <p>{`Full name: ${booking.firstName} ${booking.lastName}`}</p>
               <p>{`Room type: ${booking.roomType}`}</p>
               <p>{`Check-in date: ${new Date(
@@ -153,7 +154,7 @@ const UserDetails = () => {
               <p>{`Check-out date: ${new Date(
                 booking.checkoutDate
               ).toLocaleDateString()}`}</p>
-              <p>{`Room price: LKR${booking.price}`}</p>
+              <p>{`Room price: LKR ${booking.price}`}</p>
               <button onClick={() => handleCancelBooking(booking._id)}>
                 Cancel Booking
               </button>
@@ -164,42 +165,35 @@ const UserDetails = () => {
           ))}
         </div>
       </div>
-      <div>
-        <div className="booking">
-          <h1>Reviews</h1>
-          <div className="booking_details">
-            <div class="customer__grid">
-              {Reviews &&
-                Reviews.map((Review) => (
-                  <div class="customer__card" key={Review._id}>
-                    <FaUserAlt size={20} />
-                    <p>{Review.comment}</p>
-                    <p>{Review.rating}/10</p>
-                    <IoTrashBinSharp
-                      onClick={() => Reviewdelete(Review._id)}
-                      size={35}
-                      onMouseOver={({ target }) =>
-                        (target.style.color = "black")
-                      }
-                      onMouseOut={({ target }) =>
-                        (target.style.color = "purple")
-                      }
-                    />
-
-                    <Link to={`/Reviewupdate/${Review._id}`}>
-                      <FaUserEdit
-                        size={25}
-                        onMouseOver={({ target }) =>
-                          (target.style.color = "black")
-                        }
-                        onMouseOut={({ target }) =>
-                          (target.style.color = "purple")
-                        }
-                      />
-                    </Link>
-                  </div>
-                ))}
+      <div className="reviews-section">
+        <h1>Reviews</h1>
+        <div className="reviews-container">
+          <Link to={`/Addreview`}>
+            <div className="add-review-button">
+              <button>Add Review</button>
             </div>
+          </Link>
+          <div className="reviews-grid">
+            {reviews.map((review) => (
+              <div className="review-card" key={review._id}>
+                <FaUserAlt size={20} />
+                <p>{review.comment}</p>
+                <p>{review.rating}/10</p>
+                <IoTrashBinSharp
+                  onClick={() => Reviewdelete(review._id)}
+                  size={35}
+                  onMouseOver={({ target }) => (target.style.color = "black")}
+                  onMouseOut={({ target }) => (target.style.color = "purple")}
+                />
+                <Link to={`/Reviewupdate/${review._id}`}>
+                  <FaUserEdit
+                    size={25}
+                    onMouseOver={({ target }) => (target.style.color = "black")}
+                    onMouseOut={({ target }) => (target.style.color = "purple")}
+                  />
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </div>

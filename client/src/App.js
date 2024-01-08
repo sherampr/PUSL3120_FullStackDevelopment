@@ -18,6 +18,7 @@ import Users from "./pages/Users";
 import ReviewUpdate from "./pages/ReviewUpdate";
 import BookingList from "./pages/BookingList";
 import UpdateBooking from "./pages/updateBooking";
+import Addreview from "./pages/Addreview";
 
 // App component
 import AddMenu from "./pages/menu";
@@ -64,6 +65,7 @@ function App() {
               path="/updateBooking/:bookingId"
               element={<UpdateBooking />}
             />
+            <Route path="/Addreview" element={<Addreview />} />
           </Routes>
         </div>
 

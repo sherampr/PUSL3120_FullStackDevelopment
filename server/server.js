@@ -1,17 +1,15 @@
 // server.js
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const bookingRoutes = require('./routes/bookingRoutes');
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const bookingRoutes = require("./routes/bookingRoutes");
 
 // Load environment variables from a .env file (optional)
-require('dotenv').config();
-
+require("dotenv").config();
 
 const app = express();
-const port = process.env.PORT ; // Use 3001 as the default port if PORT is not defined
-
+const port = process.env.PORT;
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -26,7 +24,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
-app.use('/api/bookings', bookingRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 // Start the server
 app.listen(port, () => {
