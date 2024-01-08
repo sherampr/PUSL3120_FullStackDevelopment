@@ -1,0 +1,33 @@
+  name: Node.js CI
+
+  on:
+    push:
+      branches: [ development ]
+    pull_request:
+      branches: [ development ]
+
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          node-version: [16.x]
+
+      steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Set up .env
+        run: |
+          echo "MONG_URI=${{ secrets.MONG_URI }}" > server/.env
+          echo "PORT=${{ secrets.PORT }}" >> server/.env
+          echo "JWTPRIVATEKEY=${{ secrets.JWTPRIVATEKEY }}" >> server/.env
+          echo "SALT=${{ secrets.SALT }}" >> server/.env
+      - name: Install dependencies
+        run: npm install
+        working-directory: server
+      - name: Run tests on a specific file
+        run: npm test -- roomType.test.js
+        working-directory: server
