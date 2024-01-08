@@ -17,7 +17,6 @@ const authRoutes = require("./routes/auth");
 const userDetailRoutes = require("./routes/userDetails");
 const userDataRoutes = require("./routes/Data");
 const reviews = require("./routes/review");
-const rusers = require("./routes/rusers");
 
 const app = express();
 const server = http.createServer(app);
