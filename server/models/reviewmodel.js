@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const reviewSchema = new mongoose.Schema({
-  user: {
-    type: String,
-    ref: "User",
-    required: true,
-  },
   room: {
     type: String,
     ref: "RoomType",

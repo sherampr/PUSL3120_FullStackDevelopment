@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Addreview = () => {
   const [formData, setFormData] = useState({
     customerName: "",
-    customeremail: "",
+    customerEmail: "",
     room: "",
     rating: "",
     comment: "",
@@ -16,43 +16,26 @@ const Addreview = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const response = await axios.get("/api/users", {
-            headers: { "x-auth-token": token },
-          });
-          setFormData((prev) => ({
-            ...prev,
-            customerName: `${response.data.firstName} ${response.data.lastName}`,
-            customerEmail: response.data.email,
-          }));
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
+      try {
+        const response = await axios.get("/api/users", {
+          headers: { "x-auth-token": token },
+        });
+        setFormData((prev) => ({
+          ...prev,
+          customerName: `${response.data.firstName} ${response.data.lastName}`,
+          customerEmail: response.data.email,
+        }));
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        navigate("/login");
       }
     };
     fetchUserData();
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    } else {
-      axios
-        .get("/api/users", {
-          headers: {
-            "Content-Type": "application/json",
-            "x-auth-token": token,
-          },
-        })
-        .then((res) => {
-          setFormData({
-            user: res.data._id,
-          });
-        })
-        .catch((err) => {
-          console.error(err);
-          navigate("/login");
-        });
-    }
   }, [navigate]);
 
   const handleChange = (e) => {
@@ -63,20 +46,21 @@ const Addreview = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
-    axios
-      .post("/api/reviews", formData, {
+    try {
+      await axios.post("/api/reviews", formData, {
         headers: {
           "Content-Type": "application/json",
           "x-auth-token": token,
         },
-      })
-      .then(() => {
-        navigate("/UserDetails");
-        window.location.reload();
-      })
-      .catch((err) => {
-        console.error("Error updating user:", err);
       });
+      navigate("/UserDetails");
+      window.location.reload();
+    } catch (err) {
+      console.error(
+        "Error submitting review:",
+        err.response ? err.response.data : err
+      );
+    }
   };
 
   return (
@@ -105,11 +89,11 @@ const Addreview = () => {
           type="text"
           id="comment"
           name="comment"
-          value={formData.phone}
+          value={formData.comment}
           onChange={handleChange}
         />
 
-        <button type="submit">Update</button>
+        <button type="submit">Submit Review</button>
       </form>
     </div>
   );
