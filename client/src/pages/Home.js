@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/Home.css";
+import { FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -74,8 +75,9 @@ const Home = () => {
             {Reviews &&
               Reviews.map((Review) => (
                 <div className="customer__card" key={Review._id}>
-                  <img src="assets/customer-1.jpg" alt="customer" />
+                  <FaUserAlt size={30} />
                   <p>{Review.comment}</p>
+                  <p>{Review.rating}/10</p>
                 </div>
               ))}
           </div>
