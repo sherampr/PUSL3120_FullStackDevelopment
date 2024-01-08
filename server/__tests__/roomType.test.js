@@ -15,7 +15,7 @@ const mockRoomTypes = [
         _id: "657ef4fe7a87688e0578c51e",
         typeName: "Gruze Suite",
         typePrice: null, // Add typePrice if it's part of your model
-        amenities: ["Amenity1", "Amenity2", "Amenity3"], // Replace with actual amenities
+        amenities: ["Amenity1", "Amenity2", "Amenity3"], 
         typeDescription: "A spacious suite with ocean view",
         roomCapacity: 0,
         typeImages: [
@@ -38,7 +38,7 @@ const mockRoomTypes = [
         _id: "657fe9073d78af57245f0212",
         typeName: "Trefolo Ultra Luxury Suite",
         typePrice: 89000,
-        amenities: ["Amenity1", "Amenity2", "Amenity3"], // Replace with actual amenities
+        amenities: ["Amenity1", "Amenity2", "Amenity3"], 
         typeDescription: "A spacious ultra Luxury suite with mountain view",
         roomCapacity: 4,
         typeImages: [
@@ -64,7 +64,7 @@ const mockRoomType = [
         _id: "657fe9073d78af57245f0212",
         typeName: "Trefolo Ultra Luxury Suite",
         typePrice: 89000,
-        amenities: ["Amenity1", "Amenity2", "Amenity3"], // Replace with actual amenities
+        amenities: ["Amenity1", "Amenity2", "Amenity3"], 
         typeDescription: "A spacious ultra Luxury suite with mountain view",
         roomCapacity: 4,
         typeImages: [
@@ -90,8 +90,8 @@ const expectedRoomTypes = [
     {
         _id: "657ef4fe7a87688e0578c51e",
         typeName: "Gruze Suite",
-        typePrice: null, // Add typePrice if it's part of your model
-        amenities: ["Amenity1", "Amenity2", "Amenity3"], // Replace with actual amenities
+        typePrice: null, 
+        amenities: ["Amenity1", "Amenity2", "Amenity3"],
         typeDescription: "A spacious suite with ocean view",
         roomCapacity: 0,
         typeImages: [
@@ -114,7 +114,7 @@ const expectedRoomTypes = [
         _id: "657fe9073d78af57245f0212",
         typeName: "Trefolo Ultra Luxury Suite",
         typePrice: 89000,
-        amenities: ["Amenity1", "Amenity2", "Amenity3"], // Replace with actual amenities
+        amenities: ["Amenity1", "Amenity2", "Amenity3"], 
         typeDescription: "A spacious ultra Luxury suite with mountain view",
         roomCapacity: 4,
         typeImages: [
@@ -140,7 +140,7 @@ const expectedRoomType= [
         _id: "657fe9073d78af57245f0212",
         typeName: "Trefolo Ultra Luxury Suite",
         typePrice: 89000,
-        amenities: ["Amenity1", "Amenity2", "Amenity3"], // Replace with actual amenities
+        amenities: ["Amenity1", "Amenity2", "Amenity3"], 
         typeDescription: "A spacious ultra Luxury suite with mountain view",
         roomCapacity: 4,
         typeImages: [
@@ -185,22 +185,22 @@ expect(response.statusCode).toBe(200);
 expect(response.body).toEqual(expectedRoomType);
         });
 
-        // Add more tests for error scenarios
+     
     });
 
     
-    // Similar test suites for POST, DELETE, and PUT endpoints
+    
 });
 
 describe('DELETE /roomTypes/:id', () => {
     test('should delete a room type and return the deleted room type', async () => {
-        const roomId = "657fe9073d78af57245f0212"; // Example ID to be deleted
+        const roomId = "657fe9073d78af57245f0212"; //  ID to be deleted
 
         // Setup the mock to simulate the deletion
         RoomType.findByIdAndDelete.mockResolvedValue({
             _id: roomId,
             typeName: "Trefolo Ultra Luxury Suite",
-            // ... other properties
+            
         });
 
         const response = await request(app).delete(`/api/roomtypes/${roomId}`);
@@ -244,7 +244,7 @@ describe('PUT /roomTypes/:id', () => {
         expect(mockRoomTypeInstance.save).toHaveBeenCalled(); // Check if save was called on the instance
     });
 
-    // Other tests...
+   
 });
 
 

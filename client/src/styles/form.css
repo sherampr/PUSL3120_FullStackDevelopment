@@ -52,7 +52,7 @@ button:hover {
 }
 
 button[type="button"] {
-  background-color: #f44336;
+  background-color:rgb(230, 147, 39);
 }
 
 button[type="button"]:hover {

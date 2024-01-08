@@ -14,9 +14,11 @@ const multer = require('multer');
 const path = require('path');
 const mongoose = require('mongoose');
 const Reservation = require('./models/Reservation');
+const http = require('http');
 
 const app = express();
-
+const server = http.createServer(app);
+const io = require('socket.io')(server);
 // Multer storage configuration
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

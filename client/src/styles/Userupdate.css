@@ -16,9 +16,9 @@
     margin-bottom: 5px;
   }
   
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"] {
+  .form-container input[type="text"],
+  .form-container input[type="email"],
+  .form-container input[type="tel"] {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;

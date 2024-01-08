@@ -40,7 +40,7 @@ const ReservationItem = ({ reservation }) => {
   };
 
   return (
-    <div>
+    <div className="tableinputs">
       {editMode ? (
         <>
           <input
