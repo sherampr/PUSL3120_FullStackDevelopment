@@ -59,7 +59,7 @@ function App() {
             <Route path="/Users" element={<Users />} />
             <Route path="/ReviewUpdate/:id" element={<ReviewUpdate />} />
 
-            <Route path="/list" element={<BookingList />} />
+            <Route path="/staff/bookinglist" element={<BookingList />} />
 
             <Route
               path="/updateBooking/:bookingId"

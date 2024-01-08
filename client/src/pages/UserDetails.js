@@ -176,7 +176,7 @@ const UserDetails = () => {
           <div className="reviews-grid">
             {reviews.map((review) => (
               <div className="review-card" key={review._id}>
-                <FaUserAlt size={20} />
+               
                 <p>{review.comment}</p>
                 <p>{review.rating}/10</p>
                 <IoTrashBinSharp
