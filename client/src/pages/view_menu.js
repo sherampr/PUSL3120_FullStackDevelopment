@@ -41,7 +41,7 @@ const ViewMenu = () => {
                   className="menu-item-image"
                 />
                 <h3>{item.name}</h3>
-                <p>Price: ${item.price}</p>
+                <p>Price: LKR {item.price}</p>
                 <p>Category: {item.category}</p>
               </div>
             ))}

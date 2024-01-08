@@ -78,7 +78,8 @@ const RoomDetails = () => {
   }, []);
 
   useEffect(() => {
-    const socket = io('http://localhost:3001');  // Replace with your server URL
+    const socket = io(process.env.REACT_APP_SOCKET_URL);
+
   
     socket.on('roomAvailabilityUpdate', (data) => {
       if (data.roomId === id) {
