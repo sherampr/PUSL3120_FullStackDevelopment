@@ -3,9 +3,11 @@ import axios from "axios";
 import "../styles/form.css";
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function BookingForm() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { checkInDate, checkOutDate, roomType, price } = location.state;
 
   const [formData, setFormData] = useState({
@@ -69,6 +71,7 @@ function BookingForm() {
       await axios.post("/api/bookings", bookingData);
       console.log("Booking submitted successfully");
       resetForm();
+      navigate("/");
     } catch (error) {
       console.error("Failed to submit booking", error);
       setErrorMessage("Failed to submit booking");
