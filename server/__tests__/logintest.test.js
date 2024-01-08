@@ -10,7 +10,7 @@ describe("Authentication", () => {
   let userData = {
     firstName: "Test",
     lastName: "User",
-    email: "testthis@example.com",
+    email: "testthisone@example.com",
     password: "Password@123",
     confirmPassword: "Password@123",
     phone: "1234567890",
