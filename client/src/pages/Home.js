@@ -76,7 +76,9 @@ const Home = () => {
               Reviews.map((Review) => (
                 <div className="customer__card" key={Review._id}>
                   <FaUserAlt size={30} />
-                  <p>{Review.comment}</p>
+                  <p>
+                    <strong>{Review.customerName}</strong>: {Review.comment}
+                  </p>
                   <p>{Review.rating}/10</p>
                 </div>
               ))}

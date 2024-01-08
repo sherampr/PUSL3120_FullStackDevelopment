@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const Addreview = () => {
   const [formData, setFormData] = useState({
-    user: "",
+    customerName: "",
+    customeremail: "",
     room: "",
     rating: "",
     comment: "",
@@ -13,6 +14,24 @@ const Addreview = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const response = await axios.get("/api/users", {
+            headers: { "x-auth-token": token },
+          });
+          setFormData((prev) => ({
+            ...prev,
+            customerName: `${response.data.firstName} ${response.data.lastName}`,
+            customerEmail: response.data.email,
+          }));
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    };
+    fetchUserData();
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
