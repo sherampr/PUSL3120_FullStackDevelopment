@@ -35,13 +35,21 @@ const UpdateBooking = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
+      // Validation: Check if checkinDate is before checkoutDate
+      if (bookingDetails.checkinDate >= bookingDetails.checkoutDate) {
+        // Display an error message or handle the validation error appropriately
+        console.error("Checkin date should be before checkout date");
+        return;
+      }
+  
       await axios.put(`/api/bookings/${bookingId}`, bookingDetails);
       // Handle success or redirect the user
-      navigate("/UserDetails")
+      navigate("/UserDetails");
     } catch (error) {
       console.error("Error updating booking:", error);
     }
   };
+  
 
   return (
     <div className="form-container">
