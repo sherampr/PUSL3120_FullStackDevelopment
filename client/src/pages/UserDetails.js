@@ -168,27 +168,22 @@ const UserDetails = () => {
         <div className="booking">
           <h1>Reviews</h1>
           <div className="booking_details">
+            <Link to={`/Addreview`}>
+              <div className="delete">
+                <button>Add Review</button>
+              </div>
+            </Link>
             <div class="customer__grid">
               {Reviews &&
-                Reviews.map((Review) => (
-                  <div class="customer__card" key={Review._id}>
-                    <FaUserAlt size={20} />
-                    <p>{Review.comment}</p>
-                    <p>{Review.rating}/10</p>
-                    <IoTrashBinSharp
-                      onClick={() => Reviewdelete(Review._id)}
-                      size={35}
-                      onMouseOver={({ target }) =>
-                        (target.style.color = "black")
-                      }
-                      onMouseOut={({ target }) =>
-                        (target.style.color = "purple")
-                      }
-                    />
-
-                    <Link to={`/Reviewupdate/${Review._id}`}>
-                      <FaUserEdit
-                        size={25}
+                Reviews.filter((Review) => Review.user === data._id).map(
+                  (Review) => (
+                    <div class="customer__card" key={Review._id}>
+                      <FaUserAlt size={20} />
+                      <p>{Review.comment}</p>
+                      <p>{Review.rating}/10</p>
+                      <IoTrashBinSharp
+                        onClick={() => Reviewdelete(Review._id)}
+                        size={35}
                         onMouseOver={({ target }) =>
                           (target.style.color = "black")
                         }
@@ -196,9 +191,21 @@ const UserDetails = () => {
                           (target.style.color = "purple")
                         }
                       />
-                    </Link>
-                  </div>
-                ))}
+
+                      <Link to={`/Reviewupdate/${Review._id}`}>
+                        <FaUserEdit
+                          size={25}
+                          onMouseOver={({ target }) =>
+                            (target.style.color = "black")
+                          }
+                          onMouseOut={({ target }) =>
+                            (target.style.color = "purple")
+                          }
+                        />
+                      </Link>
+                    </div>
+                  )
+                )}
             </div>
           </div>
         </div>

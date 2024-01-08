@@ -5,7 +5,7 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const mongoose = require("mongoose");
-const http = require('http');
+const http = require("http");
 
 // Import your models and routes
 const MenuItem = require("./models/MenuItem");
@@ -17,17 +17,18 @@ const authRoutes = require("./routes/auth");
 const userDetailRoutes = require("./routes/userDetails");
 const userDataRoutes = require("./routes/Data");
 const reviews = require("./routes/review");
+const rusers = require("./routes/rusers");
 
 const app = express();
 const server = http.createServer(app);
 
-const io = require('socket.io')(server, {
-    cors: {
-        origin: "http://localhost:3000", 
-    }
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
 });
 
-app.set('socketio', io);
+app.set("socketio", io);
 
 // Multer storage configuration
 const storage = multer.diskStorage({
@@ -72,28 +73,23 @@ app.use("/api/users", userDataRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/reviews", reviews);
 
-
 // DB connection and server start
 if (require.main === module) {
-    mongoose.connect(process.env.MONG_URI)
-        .then(() => {
-            server.listen(process.env.PORT, () => {
-                console.log("Server started on port " + process.env.PORT);
-            });
-        })
-        .catch((error) => {
-            console.log("Database connection failed. Error: ", error);
-        });
+  mongoose
+    .connect(process.env.MONG_URI)
+    .then(() => {
+      server.listen(process.env.PORT, () => {
+        console.log("Server started on port " + process.env.PORT);
+      });
+    })
+    .catch((error) => {
+      console.log("Database connection failed. Error: ", error);
+    });
 }
 
-
-io.on('connection', (socket) => {
-    console.log('a user connected');
-    
+io.on("connection", (socket) => {
+  console.log("a user connected");
 });
-
-
-
 
 app.get("/menu", async (req, res) => {
   try {
