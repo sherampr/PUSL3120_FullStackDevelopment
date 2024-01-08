@@ -76,6 +76,19 @@ const RoomDetails = () => {
     //     // socket.disconnect();
     // };
   }, [id]);
+  const [Reviews, setReviews] = useState(null);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const response = await fetch("/api/reviews");
+      const json = await response.json();
+
+      if (response.ok) {
+        setReviews(json);
+      }
+    };
+    fetchReviews();
+  }, []);
 
   if (!roomTypes) {
     return <div>Loading...</div>;
