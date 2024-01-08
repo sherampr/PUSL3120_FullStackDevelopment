@@ -185,6 +185,22 @@ const RoomDetails = () => {
           </div>
         </div>
       </section>
+      <section class="customer">
+        <div class="section__container customer__container">
+          <h2 class="section__header">What our Guests say</h2>
+          <div class="customer__grid">
+            {Reviews &&
+              Reviews.filter((Review) => Review.room === roomTypes._id).map(
+                (Review) => (
+                  <div class="customer__card" key={Review._id}>
+                    <img src="assets/customer-1.jpg" alt="customer" />
+                    <p>{Review.comment}</p>
+                  </div>
+                )
+              )}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
