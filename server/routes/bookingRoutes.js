@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Booking = require('../models/booking');
+const RoomType = require('../models/roomTypeModel');
 
 // POST /api/bookings
 router.post('/', async (req, res) => {
@@ -17,6 +18,11 @@ router.post('/', async (req, res) => {
       price 
     } = req.body;
 
+    // Validate that roomType is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(roomType)) {
+      return res.status(400).json({ message: 'Invalid roomType ID' });
+    }
+
     const newBooking = new Booking({
       firstName,
       lastName,
@@ -29,6 +35,18 @@ router.post('/', async (req, res) => {
     });
 
     await newBooking.save();
+
+    // Update room availability
+    const roomTypeDetails = await RoomType.findById(roomType);
+    if (roomTypeDetails) {
+      roomTypeDetails.roomAvailability = Math.max(roomTypeDetails.roomAvailability - 1, 0);
+      await roomTypeDetails.save();
+
+      const io = req.app.get('socketio');
+io.emit('roomAvailabilityUpdate', { roomId: roomType, newAvailability: roomTypeDetails.roomAvailability });
+    }
+
+    
     res.status(201).json({ message: 'Booking saved successfully' });
   } catch (error) {
     console.error(error);

@@ -26,7 +26,7 @@ const getRoomType = async (req, res) => {
 
 //Create a new room type
 const createRoomType = async (req, res) => {
-    const { typeName,typePrice, amenities, typeDescription, roomCapacity, imageUrls } = req.body;
+    const { typeName,typePrice, amenities, typeDescription, roomCapacity, imageUrls, roomAvailability } = req.body;
     
     // Convert the structured URLs to ImageSchema format
     let typeImages = imageUrls.map(image => ({
@@ -36,7 +36,7 @@ const createRoomType = async (req, res) => {
     }));
 
     try {
-        const roomType = await RoomType.create({ typeName,typePrice, amenities, typeDescription, roomCapacity, typeImages });
+        const roomType = await RoomType.create({ typeName,typePrice, amenities, typeDescription, roomCapacity, typeImages,roomAvailability });
         res.status(200).json(roomType);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -58,10 +58,10 @@ const deleteRoomType = async (req, res) => {
 //update a room type
 const updateRoomType = async (req, res) => { 
     
-const { typeName,typePrice, amenities, typeDescription, roomCapacity, imageUrls } = req.body;
+const { typeName,typePrice, amenities, typeDescription, roomCapacity, imageUrls,roomAvailability } = req.body;
 
 // Validate request parameters
-if (!typeName || !typePrice || !amenities || !typeDescription || !roomCapacity || !imageUrls) {
+if (!typeName || !typePrice || !amenities || !typeDescription || !roomCapacity || !imageUrls|| !roomAvailability) {
     return res.status(400).json({ message: 'Please provide all necessary information for the room type' });
 }
 
@@ -77,6 +77,7 @@ roomType.typePrice = typePrice;
 roomType.amenities = amenities;
 roomType.typeDescription = typeDescription;
 roomType.roomCapacity = roomCapacity;
+roomType.roomAvailability = roomAvailability;
 
 // Convert the structured URLs to ImageSchema format
 let typeImages = imageUrls.map(image => ({
