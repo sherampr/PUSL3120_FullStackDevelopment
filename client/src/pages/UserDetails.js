@@ -125,6 +125,11 @@ const UserDetails = () => {
         <div className="booking">
           <h1>Reviews</h1>
           <div className="booking_details">
+            <Link to={`/Addreview`}>
+              <div className="delete">
+                <button>Add Review</button>
+              </div>
+            </Link>
             <div class="customer__grid">
               {Reviews && Reviews
                 .filter(Review => Review.user === data._id)
