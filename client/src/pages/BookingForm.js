@@ -40,9 +40,12 @@ function BookingForm() {
 
   const handleChange = useCallback(
     (e) => {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData((prevData) => ({
+        ...prevData,
+        [e.target.name]: e.target.value,
+      }));
     },
-    [formData]
+    []
   );
 
   const validateForm = () => {
@@ -142,14 +145,14 @@ function BookingForm() {
         </div>
 
         <div className="form-group">
-          <label>Select Number of Guests</label>
-          <input
-            type="number"
-            name="guestNumber"
-            value={formData.guestNumber}
-            onChange={handleChange}
-          />
-        </div>
+        <label>Select Number of Guests</label>
+        <input
+          type="number"
+          name="guestNumber"
+          value={formData.guestNumber}
+          onChange={handleChange}
+        />
+      </div>
 
         <div className="form-group">
           <label>Price</label>

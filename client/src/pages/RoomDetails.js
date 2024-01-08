@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../styles/RoomDetails.css";
-// import io from 'socket.io-client';
+ import io from 'socket.io-client';
 
 const CustomInput = forwardRef(({ value, onClick, isDisabled }, ref) => (
   <div className="input__group" onClick={onClick} ref={ref}>
@@ -19,6 +19,7 @@ const RoomDetails = () => {
   const [checkInDate, setCheckInDate] = useState(null);
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("token") !== null;
+  const [roomAvailability, setRoomAvailability] = useState(0);
 
   const handleLoginRedirect = () => {
     navigate("/Login");
@@ -42,40 +43,26 @@ const RoomDetails = () => {
   const [checkOutDate, setCheckOutDate] = useState(null);
 
   useEffect(() => {
-    //    const socket = io('http://localhost:3001', { transports: ['websocket'] });
-
-    //   socket.on('connect', () => {
-    //       console.log('Connected to WebSocket server');
-    //   });
-    //   socket.on('connect_error', (error) => {
-    //     console.error('Connection Error:', error);
-    // });
-
-    // socket.on('roomAvailabilityUpdate', (data) => {
-    //   console.log('Room availability update received:', data);
-    //     if (data.roomId === id) { // Check if the update is for the current room
-    //         setroomTypes(prevState => ({
-    //             ...prevState,
-    //             roomAvailability: data.newAvailability,
-    //         }));
-    //     }
-    // });
-
     const fetchroomTypes = async () => {
-      const response = await fetch(`/api/roomtypes/${id}`);
-      const json = await response.json();
-
-      if (response) {
+      try {
+        const response = await fetch(`/api/roomtypes/${id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch room types');
+        }
+        const json = await response.json();
+  
         setroomTypes(json);
+        // Set initial room availability based on fetched data
+        setRoomAvailability(json.roomAvailability);
+      } catch (error) {
+        console.error('Error fetching room types:', error);
+        // Handle the error appropriately
       }
     };
+  
     fetchroomTypes();
+  }, [id]); 
 
-    //   return () => {
-    //     socket.off('roomAvailabilityUpdate');
-    //     // socket.disconnect();
-    // };
-  }, [id]);
   const [Reviews, setReviews] = useState(null);
 
   useEffect(() => {
@@ -89,6 +76,22 @@ const RoomDetails = () => {
     };
     fetchReviews();
   }, []);
+
+  useEffect(() => {
+    const socket = io('http://localhost:3001');  // Replace with your server URL
+  
+    socket.on('roomAvailabilityUpdate', (data) => {
+      if (data.roomId === id) {
+        setRoomAvailability(data.newAvailability);
+      }
+    });
+  
+    return () => {
+      socket.off('roomAvailabilityUpdate');
+      socket.disconnect();
+    };
+  }, [id]);
+  
 
   if (!roomTypes) {
     return <div>Loading...</div>;
@@ -139,6 +142,9 @@ const RoomDetails = () => {
                 </div>
                 <p>Check-in date</p>
               </div>
+
+
+             
               <div class="form__group">
                 <div class="input__group">
                   <DatePicker
@@ -154,22 +160,27 @@ const RoomDetails = () => {
                 </div>
                 <p>Check-out date</p>
               </div>
+              <div class="form__group">
+
+              <p>{roomAvailability} rooms available</p>
+</div>
+
             </form>
             {isLoggedIn ? (
-              roomTypes.roomAvailability > 0 ? (
-                <div className="BookButton" onClick={handleBooking}>
-                  <p>Book Now</p>
-                </div>
-              ) : (
-                <div class="BookButton">
-                  <p>Rooms unavailable</p>
-                </div>
-              )
-            ) : (
-              <div className="BookButton" onClick={handleLoginRedirect}>
-                <p>Login Now</p>
-              </div>
-            )}
+  roomTypes.roomAvailability > 0 ? (
+    <div className="BookButton" onClick={handleBooking}>
+      <p>Book Now</p>
+    </div>
+  ) : (
+    <div className="BookButton">
+      <p>Rooms unavailable</p>
+    </div>
+  )
+) : (
+  <div className="BookButton" onClick={handleLoginRedirect}>
+    <p>Login Now</p>
+  </div>
+)}
           </div>
         </div>
       </section>

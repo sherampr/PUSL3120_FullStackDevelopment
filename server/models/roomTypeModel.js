@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+
+
 const ImageSchema = new mongoose.Schema({
   url: String,
   contentType: String,
@@ -25,6 +27,10 @@ const roomTypeSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    roomAvailability: {
+      type: Number,
+      required: true,
+    },
     typeImages: [ImageSchema]
 }, {
     timestamps: true
@@ -46,6 +52,16 @@ roomTypeSchema.pre('save', function(next) {
             next(new Error('No images provided for the room type'));
         }
     }
+});
+// Add roomAvailability field to the schema
+roomTypeSchema.add({ roomAvailability: Number });
+
+// Ensure roomAvailability is initialized properly
+roomTypeSchema.pre('save', function(next) {
+  if (this.isNew) {
+    this.roomAvailability = this.roomCapacity;
+  }
+  next();
 });
 
 module.exports = mongoose.model("RoomType", roomTypeSchema);

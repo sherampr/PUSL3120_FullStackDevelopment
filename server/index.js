@@ -1,25 +1,34 @@
 require("dotenv").config();
 
 const express = require("express");
-// const roomRoutes = require('./routes/rooms');
+const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
+const mongoose = require("mongoose");
+const http = require('http');
+
+// Import your models and routes
+const MenuItem = require("./models/MenuItem");
+const Reservation = require("./models/Reservation");
 const roomTypeRoutes = require("./routes/roomTypes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const registerRoutes = require("./routes/register");
 const authRoutes = require("./routes/auth");
 const userDetailRoutes = require("./routes/userDetails");
 const userDataRoutes = require("./routes/Data");
-const cors = require("cors");
-const MenuItem = require("./models/MenuItem");
-const multer = require("multer");
-const path = require("path");
-const mongoose = require("mongoose");
-const Reservation = require("./models/Reservation");
 const reviews = require("./routes/review");
-const http = require('http');
 
 const app = express();
 const server = http.createServer(app);
-const io = require('socket.io')(server);
+
+const io = require('socket.io')(server, {
+    cors: {
+        origin: "http://localhost:3000", 
+    }
+});
+
+app.set('socketio', io);
+
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -63,19 +72,28 @@ app.use("/api/users", userDataRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/reviews", reviews);
 
-//DB connection
+
+// DB connection and server start
 if (require.main === module) {
-  mongoose
-    .connect(process.env.MONG_URI)
-    .then(() => {
-      app.listen(process.env.PORT, () => {
-        console.log("connected to db and listening on port ", process.env.PORT);
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    mongoose.connect(process.env.MONG_URI)
+        .then(() => {
+            server.listen(process.env.PORT, () => {
+                console.log("Server started on port " + process.env.PORT);
+            });
+        })
+        .catch((error) => {
+            console.log("Database connection failed. Error: ", error);
+        });
 }
+
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    
+});
+
+
+
 
 app.get("/menu", async (req, res) => {
   try {

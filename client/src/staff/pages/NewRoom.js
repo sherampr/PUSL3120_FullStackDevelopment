@@ -9,6 +9,7 @@ const NewRoom = () => {
     amenities: '',
     typeDescription: '',
     roomCapacity: '',
+    roomAvailability: '',
     displayInHome: false, 
     typeImages: []
   });
@@ -24,7 +25,7 @@ const NewRoom = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const { typeName, typePrice, amenities, typeDescription, roomCapacity, typeImages } = roomType;
+    const { typeName, typePrice, amenities, typeDescription, roomCapacity,roomAvailability, typeImages } = roomType;
   
     const newRoomType = {
       typeName,
@@ -32,6 +33,7 @@ const NewRoom = () => {
       amenities: amenities.split(','),
       typeDescription,
       roomCapacity,
+      roomAvailability,
       displayInHome: false,
       imageUrls: typeImages.map((url, index) => ({ url, isMain: index === 0 }))
     };
@@ -46,6 +48,7 @@ const NewRoom = () => {
         amenities: '',
         typeDescription: '',
         roomCapacity: '',
+        roomAvailability:'',
         typeImages: [],
         
       });
@@ -99,6 +102,7 @@ const NewRoom = () => {
                   onChange={handleChange}
                 />
               </div>
+              
               <div>
                 <label htmlFor="typeDescription">Room Type Description</label>
                 <textarea
@@ -121,7 +125,27 @@ const NewRoom = () => {
                   onChange={handleChange}
                   required
                 />
+                
+                
               </div>
+
+              <div>
+                <label htmlFor="roomCapacity">Room Availability</label>
+                <input
+                  type="number"
+                  id="roomAvailability"
+                  name="roomAvailability"
+                  value={roomType.roomAvailability}
+                  onChange={handleChange}
+                  required
+                />
+                
+                
+              </div>
+
+
+              
+              
               <div className="row">
               <div>
                 <label htmlFor="typeImages">Room Type Images</label>

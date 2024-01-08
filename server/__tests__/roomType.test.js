@@ -18,6 +18,7 @@ const mockRoomTypes = [
         amenities: ["Amenity1", "Amenity2", "Amenity3"], 
         typeDescription: "A spacious suite with ocean view",
         roomCapacity: 0,
+        roomAvailability:4,
         typeImages: [
             {
                 url: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070",
@@ -41,6 +42,7 @@ const mockRoomTypes = [
         amenities: ["Amenity1", "Amenity2", "Amenity3"], 
         typeDescription: "A spacious ultra Luxury suite with mountain view",
         roomCapacity: 4,
+        roomAvailability:4,
         typeImages: [
             {
                 url: "https://images.unsplash.com/photo-1702411200201-3061d0eea802?q=80&w=19",
@@ -67,6 +69,7 @@ const mockRoomType = [
         amenities: ["Amenity1", "Amenity2", "Amenity3"], 
         typeDescription: "A spacious ultra Luxury suite with mountain view",
         roomCapacity: 4,
+        roomAvailability:4,
         typeImages: [
             {
                 url: "https://images.unsplash.com/photo-1702411200201-3061d0eea802?q=80&w=19",
@@ -94,6 +97,7 @@ const expectedRoomTypes = [
         amenities: ["Amenity1", "Amenity2", "Amenity3"],
         typeDescription: "A spacious suite with ocean view",
         roomCapacity: 0,
+        roomAvailability:4,
         typeImages: [
             {
                 url: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070",
@@ -117,6 +121,7 @@ const expectedRoomTypes = [
         amenities: ["Amenity1", "Amenity2", "Amenity3"], 
         typeDescription: "A spacious ultra Luxury suite with mountain view",
         roomCapacity: 4,
+        roomAvailability:4,
         typeImages: [
             {
                 url: "https://images.unsplash.com/photo-1702411200201-3061d0eea802?q=80&w=19",
@@ -143,6 +148,7 @@ const expectedRoomType= [
         amenities: ["Amenity1", "Amenity2", "Amenity3"], 
         typeDescription: "A spacious ultra Luxury suite with mountain view",
         roomCapacity: 4,
+        roomAvailability:4,
         typeImages: [
             {
                 url: "https://images.unsplash.com/photo-1702411200201-3061d0eea802?q=80&w=19",
@@ -220,6 +226,7 @@ describe('PUT /roomTypes/:id', () => {
         amenities: ["Updated Amenity1", "Updated Amenity2"],
         typeDescription: "Updated description",
         roomCapacity: 2,
+        roomAvailability:2,
         imageUrls: [{ url: "https://example.com/image1.jpg", isMain: true }]
     };
 
